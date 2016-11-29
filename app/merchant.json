@@ -1,0 +1,95 @@
+{
+	"merchant": [{
+		"id": "1",
+		"merchant_id": "2c9f8e9f470f0e8d01471c75b70111db",
+		"name": "Ola Cabs",
+		"category_id": "2c9f8e9f475907a101475dfd57440cb7",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-07-09 14:49:42.000000",
+		"date_modified": "2014-11-15 10:15:54.000000"
+	}, {
+		"id": "2",
+		"merchant_id": "2c9f814c4694ff9701469503309e009b",
+		"name": "Airtel",
+		"category_id": "2c9f8e9f475907a101475de5c63f0c32",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-06-25 13:51:01.000000",
+		"date_modified": "2014-08-03 04:58:10.000000"
+	}, {
+		"id": "3",
+		"merchant_id": "2c9f8e9f470f0e8d01471c75b70111db",
+		"name": "Ola Cabs",
+		"category_id": "2c9f8e9f475907a101475dfd57440cb7",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-07-09 14:49:42.000000",
+		"date_modified": "2014-11-15 10:15:54.000000"
+	}, {
+		"id": "4",
+		"merchant_id": "2c9f8e9f470f0e8d01471c75b70111db",
+		"name": "Ola Cabs",
+		"category_id": "2c9f8e9f475907a101475dfd57440cb7",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-07-09 14:49:42.000000",
+		"date_modified": "2014-11-15 10:15:54.000000"
+	}, {
+		"id": "5",
+		"merchant_id": "2c9f814c4694ff9701469503309e009b",
+		"name": "Airtel",
+		"category_id": "2c9f8e9f475907a101475de5c63f0c32",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-06-25 13:51:01.000000",
+		"date_modified": "2014-08-03 04:58:10.000000"
+	}, {
+		"id": "6",
+		"merchant_id": "2c9f8e9f470f0e8d01471c75b70111db",
+		"name": "Ola Cabs",
+		"category_id": "2c9f8e9f475907a101475dfd57440cb7",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-07-09 14:49:42.000000",
+		"date_modified": "2014-11-15 10:15:54.000000"
+	}, {
+		"id": "7",
+		"merchant_id": "2c9f8e9f470f0e8d01471c75b70111db",
+		"name": "Ola Cabs",
+		"category_id": "2c9f8e9f475907a101475dfd57440cb7",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-07-09 14:49:42.000000",
+		"date_modified": "2014-11-15 10:15:54.000000"
+	}, {
+		"id": "8",
+		"merchant_id": "2c9f814c4694ff9701469503309e009b",
+		"name": "Airtel",
+		"category_id": "2c9f8e9f475907a101475de5c63f0c32",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-06-25 13:51:01.000000",
+		"date_modified": "2014-08-03 04:58:10.000000"
+	}, {
+		"id": "9",
+		"merchant_id": "2c9f814c4694ff9701469503309e009b",
+		"name": "Airtel",
+		"category_id": "2c9f8e9f475907a101475de5c63f0c32",
+		"verified": "1",
+		"user_created": "0",
+		"synced": "0",
+		"date_created": "2014-06-25 13:51:01.000000",
+		"date_modified": "2014-08-03 04:58:10.000000"
+	}, {
+		"id": ""
+	}]
+}

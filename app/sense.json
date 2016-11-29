@@ -1,0 +1,510 @@
+{
+"HairXp":{
+"Name":"Hair Express",
+"Category":"-"
+},
+"CNOPLS":{
+"Name":"CINEPOLIS",
+"Category":"-"
+},
+"IBMRCT":{
+"Name":"IBM",
+"Category":"-"
+},
+"NDMCSC":{
+"Name":"NDMC",
+"Category":"-"
+},
+"LANMARK":{
+"Name":"Land Mark",
+"Category":"-"
+},
+"HCLTLC":{
+"Name":"HCL",
+"Category":"-"
+},
+"EDWISE":{
+"Name":"EDU EXpo",
+"Category":"-"
+},
+"KNWLTY":{
+"Name":"Super conference",
+"Category":"-"
+},
+"LSHOUT":{
+"Name":"LoudShout",
+"Category":"App"
+},
+"TLGRAM":{
+"Name":"Telegram",
+"Category":"App"
+},
+"Viberr":{
+"Name":"Viber",
+"Category":"App"
+},
+"GOHIKE":{
+"Name":"HIKE",
+"Category":"App"
+},
+"TAGHSH":{
+"Name":"Whatsapp",
+"Category":"App"
+},
+"MONVEW":{
+"Name":"Money View",
+"Category":"App"
+},
+"DORMNT":{
+"Name":"Door Mint",
+"Category":"App"
+},
+"Alerts":{
+"Name":"Whatsapp Code",
+"Category":"App"
+},
+"KOTAKB":{
+"Name":"Kotak Bank",
+"Category":"Bank"
+},
+"ATMSBI":{
+"Name":"SBI",
+"Category":"Bank"
+},
+"PNBSMS":{
+"Name":"PNB",
+"Category":"Bank"
+},
+"CBSSBI":{
+"Name":"SBI",
+"Category":"Bank"
+},
+"SBGMBS":{
+"Name":"SBI",
+"Category":"Bank"
+},
+"SBIACS":{
+"Name":"SBI",
+"Category":"Bank"
+},
+"SBIINB":{
+"Name":"SBI",
+"Category":"Bank"
+},
+"AxisBk":{
+"Name":"Axis Bank",
+"Category":"Bank"
+},
+"TATAIG":{
+"Name":"TATA AIG",
+"Category":"Bank"
+},
+"YESBNK":{
+"Name":"YES Bank",
+"Category":"Bank"
+},
+"HDFCBK":{
+"Name":"HDFC Bank",
+"Category":"Bank"
+},
+"OICLIN":{
+"Name":"Oriental Insurance",
+"Category":"Bank"
+},
+"KOTAKL":{
+"Name":"KOTAK",
+"Category":"Bank"
+},
+"KOTAKB":{
+"Name":"KOTAK",
+"Category":"Bank"
+},
+"KOTAKS":{
+"Name":"Kotak",
+"Category":"Bank"
+},
+"HMILCM":{
+"Name":"Hyundai",
+"Category":"Car"
+},
+"Idea":{
+"Name":"Idea",
+"Category":"Cellular"
+},
+"AIRCCF":{
+"Name":"AIRTEL",
+"Category":"Cellular"
+},
+"ARWSVC":{
+"Name":"AIRTEL",
+"Category":"Cellular"
+},
+"DOCOMO":{
+"Name":"DOCOMO",
+"Category":"Cellular"
+},
+"VFCARE":{
+"Name":"Vodafone",
+"Category":"Cellular"
+},
+"MDLITE":{
+"Name":"Vodafone",
+"Category":"Cellular"
+},
+"Aircel":{
+"Name":"Aircel",
+"Category":"Cellular"
+},
+"IDEA":{
+"Name":"Idea",
+"Category":"Cellular"
+},
+"BSNLIN":{
+"Name":"BSNL",
+"Category":"Cellular"
+},
+"airtel":{
+"Name":"Airtel",
+"Category":"Cellular"
+},
+"MTSSER":{
+"Name":"MTS",
+"Category":"Cellular"
+},
+"MTSBILL":{
+"Name":"MTS",
+"Category":"Cellular"
+},
+"MTNLCB":{
+"Name":"MTNL",
+"Category":"Cellular"
+},
+"AMSWAN":{
+"Name":"AmericanSwan",
+"Category":"Clothing"
+},
+"XPBEES":{
+"Name":"Xpressbees",
+"Category":"Delivery"
+},
+"JAVAAS":{
+"Name":"Go Javas",
+"Category":"Delivery"
+},
+"JABONG":{
+"Name":"Jabong",
+"Category":"E-commerce"
+},
+"LENSKT":{
+"Name":"Lens Kart",
+"Category":"E-commerce"
+},
+"iPaytm":{
+"Name":"Paytm",
+"Category":"E-commerce"
+},
+"IPAYTM":{
+"Name":"Paytm",
+"Category":"E-commerce"
+},
+"-Amazon":{
+"Name":"Amazon",
+"Category":"E-commerce"
+},
+"SHOPCL":{
+"Name":"Shop Clues",
+"Category":"E-commerce"
+},
+"FLPKRT":{
+"Name":"Flipkart",
+"Category":"E-commerce"
+},
+"BATAIN":{
+"Name":"BATA",
+"Category":"E-commerce"
+},
+"ZIVAME":{
+"Name":"Zivame",
+"Category":"E-commerce"
+},
+"FABBAG":{
+"Name":"Fab Bag",
+"Category":"E-commerce"
+},
+"kPaytm":{
+"Name":"Paytm",
+"Category":"E-commerce"
+},
+"SNAPDL":{
+"Name":"Snap deal",
+"Category":"E-commerce"
+},
+"PAYUMN":{
+"Name":"PayUmoney",
+"Category":"E-commerce"
+},
+"BMSHOW":{
+"Name":"Book my Show",
+"Category":"E-commerce"
+},
+"JustDl":{
+"Name":"Just Dial",
+"Category":"E-commerce"
+},
+"MyCobb":{
+"Name":"Cobbitaly",
+"Category":"E-commerce"
+},
+"Cfloor":{
+"Name":"Common Floor",
+"Category":"E-commerce"
+},
+"FCHRGE":{
+"Name":"Free Charge",
+"Category":"E-commerce"
+},
+"STREET":{
+"Name":"Street style store",
+"Category":"E-commerce"
+},
+"MZIFFI":{
+"Name":"Ziffi",
+"Category":"E-commerce"
+},
+"LENOVO":{
+"Name":"LENOVO",
+"Category":"E-commerce"
+},
+"PRPLLE":{
+"Name":"Purplle",
+"Category":"E-commerce"
+},
+"LORENT":{
+"Name":"Lorent",
+"Category":"E-commerce"
+},
+"UASKME":{
+"Name":"Ask me Bazzar",
+"Category":"E-commerce"
+},
+"Vpaytm":{
+"Name":"Paytm",
+"Category":"E-commerce"
+},
+"ARAMEX":{
+"Name":"Aramex",
+"Category":"E-commerce"
+},
+"MyNTRA":{
+"Name":"Myntra",
+"Category":"E-commerce"
+},
+"DLHVRY":{
+"Name":"DELHIVERY",
+"Category":"E-commerce"
+},
+"EASYMD":{
+"Name":"Easy Medicos",
+"Category":"E-commerce"
+},
+"BRSNGH":{
+"Name":"Burger Singh",
+"Category":"E-commerce"
+},
+"UBCLAP":{
+"Name":"Urban Clap",
+"Category":"E-commerce"
+},
+"GLDESI":{
+"Name":"Urban Nomad",
+"Category":"E-commerce"
+},
+"REDHOT":{
+"Name":"Fusion Beats",
+"Category":"E-commerce"
+},
+"LEAGUE":{
+"Name":"Baby league merchandise",
+"Category":"E-commerce"
+},
+"MRRGHT":{
+"Name":"Mr. Right",
+"Category":"E-commerce"
+},
+"DEYORR":{
+"Name":"Deyor Rooms",
+"Category":"E-commerce"
+},
+"MYNTA":{
+"Name":"Myntra",
+"Category":"E-commerce"
+},
+"ZOBELO":{
+"Name":"Zobello",
+"Category":"E-commerce"
+},
+"IMrtAp":{
+"Name":"India Mart",
+"Category":"E-commerce"
+},
+"INDMRT":{
+"Name":"India Mart",
+"Category":"E-commerce"
+},
+"DOMINO":{
+"Name":"Dominos",
+"Category":"Food"
+},
+"DUNKND":{
+"Name":"Dunkin Donuts",
+"Category":"Food"
+},
+"FPANDA":{
+"Name":"Food Panda",
+"Category":"Food"
+},
+"AOLAOL":{
+"Name":"Art of Living",
+"Category":"Foundation"
+},
+"MININB":{
+"Name":"Organ Donate",
+"Category":"Foundation"
+},
+"Mosaic":{
+"Name":"Mosaic Hotel",
+"Category":"Hotel"
+},
+"DEEZBR":{
+"Name":"DEEZ",
+"Category":"Hotel"
+},
+"PIET":{
+"Name":"PIET",
+"Category":"Institute"
+},
+"ABROAD":{
+"Name":"UK universities ad",
+"Category":"Institute"
+},
+"NAUKRI":{
+"Name":"Naukri",
+"Category":"Job Portel"
+},
+"TMJOBS":{
+"Name":"Times Jobs",
+"Category":"Job Portel"
+},
+"MONSTR":{
+"Name":"Monster Job",
+"Category":"Job Portel"
+},
+"APOLLO":{
+"Name":"Apollo Pharmacy",
+"Category":"Medical"
+},
+"MICROM":{
+"Name":"Micromax",
+"Category":"Mobile"
+},
+"RTOGUJ":{
+"Name":"RTO GUJRAT",
+"Category":"Official"
+},
+"TGIFin":{
+"Name":"TGIF",
+"Category":"Restaurant"
+},
+"MRRGHT":{
+"Name":"Mr. Right",
+"Category":"Service"
+},
+"SNPCHT":{
+"Name":"SnapChat",
+"Category":"Social Media"
+},
+"FACEBK":{
+"Name":"Facebook",
+"Category":"Social Media"
+},
+"whsapp":{
+"Name":"Whatsapp",
+"Category":"Social Media"
+},
+"IRCTCi":{
+"Name":"IRCTC",
+"Category":"Travelling"
+},
+"IndiGo":{
+"Name":"IndiGo",
+"Category":"Travelling"
+},
+"IRSMSA":{
+"Name":"Indian Railways",
+"Category":"Travelling"
+},
+"GoIBIB":{
+"Name":"Go Ibibo",
+"Category":"Travelling"
+},
+"SHRNTH":{
+"Name":"ShreeNath Bus",
+"Category":"Travelling"
+},
+"BLABLA":{
+"Name":"BLA BLA Car",
+"Category":"Travelling"
+},
+"UBERIN":{
+"Name":"UBER",
+"Category":"Travelling"
+},
+"SHUTTL":{
+"Name":"Shuttl",
+"Category":"Travelling"
+},
+"IRSMSA":{
+"Name":"IRCTC",
+"Category":"Travelling"
+},
+"TAXIFS":{
+"Name":"Taxi For sure",
+"Category":"Travelling"
+},
+"OLACAB":{
+"Name":"OLA Cab",
+"Category":"Travelling"
+},
+"MOBIKW":{
+"Name":"Mobikwik",
+"Category":"Wallet"
+},
+"GOOGLE":{
+"Name":"Google",
+"Category":"Website"
+},
+"OTPASS":{
+"Name":"Google",
+"Category":"Website"
+},
+"WAYSMS":{
+"Name":"Way2sms",
+"Category":"Website"
+},
+"OTPSMS":{
+"Name":"Microsoft",
+"Category":"Website"
+},
+"WEBSVC":{
+"Name":"",
+"Category":""
+},
+"UBCLAP":{
+"Name":"UrbanClab",
+"Category":"E-commerce"
+},
+"DCHOGA":{
+"Name":"DCK",
+"Category":"Food Outlet"
+}
+}

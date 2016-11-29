@@ -1,0 +1,123 @@
+{
+	"biller_type": [{
+		"id": 1,
+		"name": "Credit Card",
+		"description": 0,
+		"colorCode": "#FF7BB7F2",
+		"drawable": "icon_lg_cat_ccbillpayment",
+		"date_created": "2015-02-26 12:42:25.000000",
+		"date_modified": "2015-02-26 12:42:25.000000",
+		"order": 1,
+		"enabled": 1
+	}, {
+		"id": 2,
+		"name": "Dongle",
+		"description": 0,
+		"colorCode": "#FF7FD77E",
+		"drawable": "icon_lg_bill_dongle",
+		"date_created": "2015-02-26 12:44:24.000000",
+		"date_modified": "2015-02-26 12:44:24.000000",
+		"order": 2,
+		"enabled": 1
+	}, {
+		"id": 3,
+		"name": "Internet",
+		"description": 0,
+		"colorCode": "#FFCF52AA",
+		"drawable": "icon_lg_bill_internet",
+		"date_created": "2015-02-26 12:44:49.000000",
+		"date_modified": "2015-02-26 12:44:49.000000",
+		"order": 3,
+		"enabled": 1
+	}, {
+		"id": 4,
+		"name": "Mobile",
+		"description": 0,
+		"colorCode": "#FF8E9DBD",
+		"drawable": "icon_lg_cat_mobile",
+		"date_created": "2015-02-26 12:45:06.000000",
+		"date_modified": "2015-02-26 12:45:06.000000",
+		"order": 4,
+		"enabled": 1
+	}, {
+		"id": 5,
+		"name": "Landline",
+		"description": 0,
+		"colorCode": "#FFFE9467",
+		"drawable": "icon_lg_bill_landline",
+		"date_created": "2015-02-26 12:45:11.000000",
+		"date_modified": "2015-02-26 12:45:11.000000",
+		"order": 5,
+		"enabled": 1
+	}, {
+		"id": 6,
+		"name": "DTH/Cable",
+		"description": 0,
+		"colorCode": "#FF9DB3BF",
+		"drawable": "icon_lg_cat_cable",
+		"date_created": "2015-02-26 12:45:19.000000",
+		"date_modified": "2015-02-26 12:45:19.000000",
+		"order": 6,
+		"enabled": 1
+	}, {
+		"id": 7,
+		"name": "Loan EMI",
+		"description": 0,
+		"colorCode": "#FFF3BF8B",
+		"drawable": "icon_lg_cat_loan",
+		"date_created": "2015-02-26 12:45:29.000000",
+		"date_modified": "2015-02-26 12:45:29.000000",
+		"order": 7,
+		"enabled": 1
+	}, {
+		"id": 8,
+		"name": "Insurance",
+		"description": 0,
+		"colorCode": "#FFFAB496",
+		"drawable": "icon_lg_cat_insurance",
+		"date_created": "2015-02-26 12:45:35.000000",
+		"date_modified": "2015-02-26 12:45:35.000000",
+		"order": 8,
+		"enabled": 1
+	}, {
+		"id": 9,
+		"name": "Investments",
+		"description": 0,
+		"colorCode": "#FFA79EFA",
+		"drawable": "icon_lg_cat_investments",
+		"date_created": "2015-02-26 12:45:41.000000",
+		"date_modified": "2015-02-26 12:45:41.000000",
+		"order": 9,
+		"enabled": 1
+	}, {
+		"id": 10,
+		"name": "Utilities",
+		"description": 0,
+		"colorCode": "#FF9292F5",
+		"drawable": "icon_lg_bill_utilities",
+		"date_created": "2015-02-26 12:45:47.000000",
+		"date_modified": "2015-02-26 12:45:47.000000",
+		"order": 10,
+		"enabled": 1
+	}, {
+		"id": 11,
+		"name": "Maintenance",
+		"description": 0,
+		"colorCode": "#FFEBA77A",
+		"drawable": "icon_lg_cat_maintenance",
+		"date_created": "2015-02-26 12:45:53.000000",
+		"date_modified": "2015-02-26 12:45:53.000000",
+		"order": 11,
+		"enabled": 1
+	}, {
+		"id": 12,
+		"name": "Others",
+		"description": 0,
+		"colorCode": "#FF9DA6A3",
+		"drawable": "icon_lg_bill_others",
+		"date_created": "2015-02-26 12:45:56.000000",
+		"date_modified": "2015-02-26 12:45:56.000000",
+		"order": 12,
+		"enabled": 1
+	}]
+}
