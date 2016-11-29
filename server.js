@@ -37,7 +37,8 @@ var connect = function() {
 		// user: 'qykly',
 		// pass: 'qykly123'
 	};
-	var connection = mongoose.connect('mongodb://localhost:27017/chibleevendor',
+	var connection = mongoose.connect(
+		'mongodb://54.169.192.5:12528/chibleevendor',
 		options);;
 	autoIncrement.initialize(connection);
 	// mongoose.connect('mongodb://localhost/quickly', options);
