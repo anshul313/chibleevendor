@@ -87,7 +87,6 @@ module.exports.controller = function(router) {
 
 methods.launch = function(req, res) {
 
-    console.log(file);
     var bucket_name = 'chiblee';
     var filename = new Date().getTime() + ".jpg";
     console.log(filename);
