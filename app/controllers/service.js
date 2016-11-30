@@ -86,14 +86,11 @@ module.exports.controller = function(router) {
 =============================================*/
 
 methods.launch = function(req, res) {
-
+    console.log(req.files);
     var bucket_name = 'chiblee';
-    var filename = new Date().getTime() + ".jpg";
-    console.log(filename);
-    var image_url =
-      "https://s3-ap-southeast-1.amazonaws.com/chiblee/" +
+    var filename = new Date().getTime() + ".png";;
+    var image_url = 'https://s3-ap-southeast-1.amazonaws.com/chiblee/' +
       filename;
-
     var storage = multer.diskStorage({
       destination: function(req, file, callback) {
         callback(null, './')
@@ -108,11 +105,11 @@ methods.launch = function(req, res) {
     }).single('file');
     uploadfile(req, res, function(err) {
       if (err) {
-        return res.status(400).send({
-          message: errorHandler
-            .getErrorMessage(
-              err)
-        });
+        response.error = true;
+        response.status = 400;
+        response.errors = err;
+        response.userMessage = "Server internal error";
+        return SendResponse(res);
       } else {
         var readStream = fs.createReadStream('./' +
           filename);
@@ -308,8 +305,10 @@ var s3Upload = function(readStream, fileName, req, res) {
           return SendResponse(res);
         }
       });
+    } else {
+      var filePath = './' + fileName;
+      fs.unlinkSync(filePath);
     }
-
   });
 };
 
