@@ -297,6 +297,7 @@ var s3Upload = function(readStream, fileName, res) {
   };
   s3.putObject(params, function(err, data) {
     if (err) {
+      console.log('error : ', err);
       return res.status(400).send({
         message: errorHandler
           .getErrorMessage(
