@@ -61,9 +61,9 @@ require('./config/routes')(router);
 app.use('/api', router);
 
 //Install application
-if (process.env.NODE_ENV != 'test') {
-	app.listen(port)
-	console.log(process.env.NODE_ENV, 'Quickly API\'s running on the port : ' +
-		port);
-}
+// if (process.env.NODE_ENV != 'test') {
+app.listen(port)
+console.log(process.env.NODE_ENV, 'Quickly API\'s running on the port : ' +
+	port);
+// }
 module.exports = app;
