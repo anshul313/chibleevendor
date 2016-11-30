@@ -434,9 +434,8 @@ methods.generateOTP = function(req, res) {
 =============================================*/
 
 methods.confirmOTP = function(req, res) {
-  req.checkBody('deviceID', 'deviceID is required.').notEmpty();
-  req.checkBody('mobile', 'mobile is required.').notEmpty();
-  req.checkBody('otp', 'otp is required.').notEmpty();
+  // req.checkBody('mobileNumber', 'mobile is required.').notEmpty();
+  // req.checkBody('otp', 'otp is required.').notEmpty();
   var errors = req.validationErrors(true);
   if (errors) {
     response.error = true;
@@ -490,7 +489,8 @@ methods.confirmOTP = function(req, res) {
         response.status = 200;
         response.data = {
           userID: data._id,
-          authToken: token
+          authToken: data.authToken,
+          vendorDetails: data
         }
         response.errors = err;
         response.userMessage = "Thanks for Login...";
