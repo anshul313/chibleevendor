@@ -117,7 +117,7 @@ methods.launch = function(req, res) {
         s3Upload(readStream, filename, req, res);
 
         vendor.findOne({
-          deviceID: req.body.deviceID
+          mobileNumber: req.body.mobileNumber
         }, function(err, data) {
           if (err) {
             response.error = true;
@@ -129,7 +129,7 @@ methods.launch = function(req, res) {
             var OTP = String(Math.floor(Math.random() * (9999 - 1000 +
               1) + 1000));
             vendor.update({
-                deviceID: req.body.deviceID
+                mobileNumber: req.body.mobileNumber
               }, {
                 "$set": {
                   deviceID: req.body.deviceID,
