@@ -487,13 +487,9 @@ methods.confirmOTP = function(req, res) {
         //       } else {
         response.error = false;
         response.status = 200;
-        response.data = {
-          userID: data._id,
-          authToken: data.authToken,
-          vendorDetails: data
-        }
+        response.data = data
         response.errors = err;
-        response.userMessage = "Thanks for Login...";
+        response.userMessage = "Thanks for Login";
         return SendResponse(res);
       }
       //     });
