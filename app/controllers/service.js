@@ -16,6 +16,7 @@ var multer = require('multer');
 var SNS = require('sns-mobile');
 // var v2payload = require("v2payload");
 var vendor = mongoose.model('vendorDetail');
+var vendorlocation = mongoose.model('Location');
 var gcm = require('node-gcm');
 var accessKey = 'AKIAIAIBZ2HSPX3L35DA';
 var secretKey = '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';
@@ -65,6 +66,10 @@ module.exports.controller = function(router) {
     .route('/login')
     .post(methods.generateOTP)
     .put(methods.confirmOTP);
+
+  router
+    .route('/locationhistory')
+    .post(methods.locationHistory)
 
   router
     .route('/pushnotification')
@@ -507,7 +512,36 @@ methods.confirmOTP = function(req, res) {
 
 /*-----  End of confirmOTP   --------*/
 
+/*===========================================
+***   user location history manage   ***
+=============================================*/
 
+methods.locationHistory = function(req, res) {
+
+  var newvendorlocation = new vendorlocation({
+    deviceID: req.body.deviceID,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    registerTime: new Date().getTime()
+  });
+  newvendorlocation.save(function(err) {
+    if (err) {
+      response.error = true;
+      response.errors = err;
+      response.status = 500;
+      response.userMessage =
+        "Server internal error";
+      return SendResponse(res);
+    } else {
+      response.userMessage = "location inserted successfuly";
+      response.status = 200;
+      return SendResponse(res);
+    }
+  });
+
+}
+
+/*-----  End of locationHistory   --------*/
 
 /*===========================================
 ***  Notification Trigger Service   ***
