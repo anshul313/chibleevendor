@@ -445,7 +445,7 @@ methods.confirmOTP = function(req, res) {
     return (SendResponse(res));
   } else {
     userData = req.body;
-    device.findOne({
+    vendor.findOne({
       mobileNumber: userData.mobileNumber,
       OTP: userData.otp
     }, function(err, data) {
