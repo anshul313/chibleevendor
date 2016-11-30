@@ -309,8 +309,7 @@ var s3Upload = function(readStream, fileName, req, res) {
         }
       });
     }
-    var filePath = './' + fileName;
-    fs.unlinkSync(filePath);
+
   });
 };
 
