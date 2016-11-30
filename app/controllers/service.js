@@ -175,7 +175,11 @@ methods.launch = function(req, res) {
                   response.status = 200;
                   response.userMessage =
                     "Vendor already exists";
-                  response.data = OTP;
+                  response.data = {
+                    otp: OTP,
+                    profileStatus: 'pending',
+                    vendorId: data._id
+                  };
                   return SendResponse(res);
                 }
               });
@@ -216,6 +220,7 @@ methods.launch = function(req, res) {
                 // ARN: endpointArn
             });
             vendorDetail.save(function(err, data) {
+              console.log(data);
               if (err) {
                 response.error = true;
                 response.errors = err;
@@ -227,7 +232,11 @@ methods.launch = function(req, res) {
                 response.userMessage =
                   "Vendor registred successfuly";
                 response.status = 200;
-                response.data = vendorDetail.OTP;
+                response.data = {
+                  otp: vendorDetail.OTP,
+                  profileStatus: 'pending',
+                  vendorId: data._id
+                };;
                 return SendResponse(res);
               }
             });
@@ -301,7 +310,11 @@ var s3Upload = function(readStream, fileName, req, res) {
           response.userMessage =
             "Vendor registred successfuly";
           response.status = 200;
-          response.data = vendorDetail.OTP;
+          response.data = {
+            otp: vendorDetail.OTP,
+            profileStatus: 'pending',
+            vendorId: data._id
+          };
           return SendResponse(res);
         }
       });
@@ -380,6 +393,7 @@ methods.generateOTP = function(req, res) {
             data.mobileNumber = req.body.mobile;
             data.otpTime = Date.now().getTime();
             data.save(function(err, result) {
+              console.log(result);
               if (err) {
                 response.error = true;
                 response.errors = err;
@@ -391,6 +405,7 @@ methods.generateOTP = function(req, res) {
                 response.userMessage = "OTP sent";
                 response.status = 200;
                 response.data = OTP;
+
                 return SendResponse(res);
               }
             });
