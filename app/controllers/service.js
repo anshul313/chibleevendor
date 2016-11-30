@@ -86,197 +86,159 @@ module.exports.controller = function(router) {
 =============================================*/
 
 methods.launch = function(req, res) {
-    // req.checkBody('deviceID', 'deviceID is required.').notEmpty();
-    // req.checkBody('email', 'email is required.').notEmpty();
-    // req.checkBody('mobileNumber', 'mobileNumber is required.').notEmpty();
-    // req.checkBody('model', 'mobileNumber is required.').notEmpty();
-    // req.checkBody('appVersion', 'appVersion is required.').notEmpty();
-    // req.checkBody('category', 'category is required').notEmpty();
-    // req.checkBody('androidSdk', 'androidSdk is required.').notEmpty();
-    // req.checkBody('gcmId', 'gcmId is required.').notEmpty();
-    // req.checkBody('paytmNumber', 'paytmNumber is required.').notEmpty();
-    // req.checkBody('mobikwikNumber', 'mobikwikNumber is required.').notEmpty();
-    // req.checkBody('model', 'model is required.').notEmpty();
-    // req.checkBody('isStationary', 'isStationary is required.').notEmpty();
-    // req.checkBody('isMobile', 'isMobile is required.').notEmpty();
-    // req.checkBody('isWalletInterested', 'isWalletInterested is required.').notEmpty();
-    // req.checkBody('area', 'area is required.').notEmpty();
-    // req.checkBody('shopNumber', 'shopNumber is required.').notEmpty();
-    // req.checkBody('address', 'address is required.').notEmpty();
-    // req.checkBody('landmark', 'landmark is required.').notEmpty();
-    // req.checkBody('fromTiming', 'fromTiming is required.').notEmpty();
-    // req.checkBody('toTiming', 'toTiming is required.').notEmpty();
-    // req.checkBody('name', 'name is required.').notEmpty();
-    // req.checkBody('isHomeDelivery', 'isHomeDelivery is required.').notEmpty();
-    // req.checkBody('mobileNumber', 'mobileNumber is required.').notEmpty();
 
-    var errors = req.validationErrors(true);
-    if (errors) {
-      response.error = true;
-      response.status = 400;
-      response.errors = errors;
-      response.userMessage = 'Validation errors';
-      return (SendResponse(res));
-    } else {
-      var bucket_name = 'chiblee';
-      var filename = new Date().getTime() + ".jpg";
-      console.log(filename);
-      var image_url =
-        "https://s3-ap-southeast-1.amazonaws.com/chiblee/" +
-        filename;
+    console.log(file);
+    var bucket_name = 'chiblee';
+    var filename = new Date().getTime() + ".jpg";
+    console.log(filename);
+    var image_url =
+      "https://s3-ap-southeast-1.amazonaws.com/chiblee/" +
+      filename;
 
-      var storage = multer.diskStorage({
-        destination: function(req, file, callback) {
-          callback(null, './')
-        },
-        filename: function(req, file, callback) {
-          callback(null, filename)
-        }
-      });
-      var uploadfile = multer({
-        storage: storage,
-        size: 1080 * 10 * 10 * 10
-      }).single('file');
-      uploadfile(req, res, function(err) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler
-              .getErrorMessage(
-                err)
-          });
-        } else {
-          var readStream = fs.createReadStream('./' +
-            filename);
+    var storage = multer.diskStorage({
+      destination: function(req, file, callback) {
+        callback(null, './')
+      },
+      filename: function(req, file, callback) {
+        callback(null, filename)
+      }
+    });
+    var uploadfile = multer({
+      storage: storage,
+      size: 1080 * 10 * 10 * 10
+    }).single('file');
+    uploadfile(req, res, function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler
+            .getErrorMessage(
+              err)
+        });
+      } else {
+        var readStream = fs.createReadStream('./' +
+          filename);
 
-          s3Upload(readStream, filename, res);
+        s3Upload(readStream, filename, res);
 
-          vendor.findOne({
-            deviceID: req.body.deviceID
-          }, function(err, data) {
-            if (err) {
-              response.error = true;
-              response.status = 400;
-              response.errors = err;
-              response.userMessage = "Server internal error";
-              return SendResponse(res);
-            } else if (data) {
-              var OTP = String(Math.floor(Math.random() * (9999 - 1000 +
-                1) + 1000));
-              vendor.update({
-                  deviceID: req.body.deviceID
-                }, {
-                  "$set": {
-                    deviceID: req.body.deviceID,
-                    email: req.body.email,
-                    model: req.body.model,
-                    mobileNumber: req.body.mobileNumber,
-                    appVersion: req.body.appVersion,
-                    paytmNumber: req.body.paytmNumber,
-                    mobikwikNumber: req.body.mobikwikNumber,
-                    gcmId: req.body.gcmId,
-                    androidSdk: req.body.androidSdk,
-                    category: req.body.category,
-                    isStationary: req.body.isStationary,
-                    isMobile: req.body.isStationary,
-                    isWalletInterested: req.body.isWalletInterested,
-                    area: req.body.area,
-                    shopNumber: req.body.shopNumber,
-                    address: req.body.address,
-                    landmark: req.body.landmark,
-                    fromTiming: req.body.fromTiming,
-                    toTiming: req.body.toTiming,
-                    name: req.body.name,
-                    isHomeDelivery: req.body.isHomeDelivery,
-                    registerTime: new Date().getTime(),
-                    imageUrl: image_url,
-                    OTP: OTP,
-                    speciality: req.body.speciality,
-                    offDays: req.body.offDays
-                  }
-                }, {
-                  multi: true
-                },
-                function(err, result) {
-                  if (err) {
-                    response.error = true;
-                    response.status = 400;
-                    response.errors = err;
-                    response.userMessage = "Server internal error";
-                    return SendResponse(res);
-                  } else {
-                    console.log("You are old User");
-                    response.error = false;
-                    response.status = 200;
-                    response.userMessage =
-                      "Vendor already exists";
-                    response.data = OTP;
-                    return SendResponse(res);
-                  }
-                });
-            } else {
-
-
-              // sns.getARN(pushToken, platform, function(err, endpointArn) {
-              //   if (err) {
-              //     response.error = true;
-              //     response.status = 400;
-              //     return SendResponse(res);
-              //   }
-              var OTP = String(Math.floor(Math.random() * (9999 - 1000 +
-                1) + 1000));
-              var authtoken = crypto.createHmac('sha256', req.body.deviceID)
-                .update(req.body.email).digest('hex');
-              var vendorDetail = new vendor({
-                deviceID: req.body.deviceID,
-                email: req.body.email,
-                model: req.body.model,
-                authToken: authtoken,
-                mobileNumber: req.body.mobileNumber,
-                appVersion: req.body.appVersion,
-                paytmNumber: req.body.paytmNumber,
-                mobikwikNumber: req.body.mobikwikNumber,
-                gcmId: req.body.gcmId,
-                androidSdk: req.body.androidSdk,
-                category: req.body.category,
-                isStationary: req.body.isStationary,
-                isMobile: req.body.isStationary,
-                isWalletInterested: req.body.isWalletInterested,
-                area: req.body.area,
-                shopNumber: req.body.shopNumber,
-                address: req.body.address,
-                landmark: req.body.landmark,
-                fromTiming: req.body.fromTiming,
-                toTiming: req.body.toTiming,
-                name: req.body.name,
-                isHomeDelivery: req.body.isHomeDelivery,
-                registerTime: new Date().getTime(),
-                imageUrl: image_url,
-                OTP: OTP,
-                speciality: req.body.speciality,
-                offDays: req.body.offDays
-                  // ARN: endpointArn
-              });
-              vendorDetail.save(function(err, data) {
+        vendor.findOne({
+          deviceID: req.body.deviceID
+        }, function(err, data) {
+          if (err) {
+            response.error = true;
+            response.status = 400;
+            response.errors = err;
+            response.userMessage = "Server internal error";
+            return SendResponse(res);
+          } else if (data) {
+            var OTP = String(Math.floor(Math.random() * (9999 - 1000 +
+              1) + 1000));
+            vendor.update({
+                deviceID: req.body.deviceID
+              }, {
+                "$set": {
+                  deviceID: req.body.deviceID,
+                  email: req.body.email,
+                  model: req.body.model,
+                  mobileNumber: req.body.mobileNumber,
+                  appVersion: req.body.appVersion,
+                  paytmNumber: req.body.paytmNumber,
+                  mobikwikNumber: req.body.mobikwikNumber,
+                  gcmId: req.body.gcmId,
+                  androidSdk: req.body.androidSdk,
+                  category: req.body.category,
+                  isStationary: req.body.isStationary,
+                  isMobile: req.body.isStationary,
+                  isWalletInterested: req.body.isWalletInterested,
+                  area: req.body.area,
+                  shopNumber: req.body.shopNumber,
+                  address: req.body.address,
+                  landmark: req.body.landmark,
+                  fromTiming: req.body.fromTiming,
+                  toTiming: req.body.toTiming,
+                  name: req.body.name,
+                  isHomeDelivery: req.body.isHomeDelivery,
+                  registerTime: new Date().getTime(),
+                  imageUrl: image_url,
+                  OTP: OTP,
+                  speciality: req.body.speciality,
+                  offDays: req.body.offDays
+                }
+              }, {
+                multi: true
+              },
+              function(err, result) {
                 if (err) {
                   response.error = true;
+                  response.status = 400;
                   response.errors = err;
-                  response.status = 500;
                   response.userMessage = "Server internal error";
                   return SendResponse(res);
                 } else {
-                  console.log("You are new User");
-                  response.userMessage =
-                    "Vendor registred successfuly";
+                  console.log("You are old User");
+                  response.error = false;
                   response.status = 200;
-                  response.data = vendorDetail.OTP;
+                  response.userMessage =
+                    "Vendor already exists";
+                  response.data = OTP;
                   return SendResponse(res);
                 }
               });
-            }
-          });
-        }
-      });
-    }
+          } else {
+
+            var OTP = String(Math.floor(Math.random() * (9999 - 1000 +
+              1) + 1000));
+            var authtoken = crypto.createHmac('sha256', req.body.deviceID)
+              .update(req.body.email).digest('hex');
+            var vendorDetail = new vendor({
+              deviceID: req.body.deviceID,
+              email: req.body.email,
+              model: req.body.model,
+              authToken: authtoken,
+              mobileNumber: req.body.mobileNumber,
+              appVersion: req.body.appVersion,
+              paytmNumber: req.body.paytmNumber,
+              mobikwikNumber: req.body.mobikwikNumber,
+              gcmId: req.body.gcmId,
+              androidSdk: req.body.androidSdk,
+              category: req.body.category,
+              isStationary: req.body.isStationary,
+              isMobile: req.body.isStationary,
+              isWalletInterested: req.body.isWalletInterested,
+              area: req.body.area,
+              shopNumber: req.body.shopNumber,
+              address: req.body.address,
+              landmark: req.body.landmark,
+              fromTiming: req.body.fromTiming,
+              toTiming: req.body.toTiming,
+              name: req.body.name,
+              isHomeDelivery: req.body.isHomeDelivery,
+              registerTime: new Date().getTime(),
+              imageUrl: image_url,
+              OTP: OTP,
+              speciality: req.body.speciality,
+              offDays: req.body.offDays
+                // ARN: endpointArn
+            });
+            vendorDetail.save(function(err, data) {
+              if (err) {
+                response.error = true;
+                response.errors = err;
+                response.status = 500;
+                response.userMessage = "Server internal error";
+                return SendResponse(res);
+              } else {
+                console.log("You are new User");
+                response.userMessage =
+                  "Vendor registred successfuly";
+                response.status = 200;
+                response.data = vendorDetail.OTP;
+                return SendResponse(res);
+              }
+            });
+          }
+        });
+      }
+    });
   }
   /*-----  End of launch  --------*/
 
@@ -297,11 +259,55 @@ var s3Upload = function(readStream, fileName, res) {
   };
   s3.putObject(params, function(err, data) {
     if (err) {
-      console.log('error : ', err);
-      return res.status(400).send({
-        message: errorHandler
-          .getErrorMessage(
-            err)
+      var OTP = String(Math.floor(Math.random() * (9999 - 1000 +
+        1) + 1000));
+      var authtoken = crypto.createHmac('sha256', req.body.deviceID)
+        .update(req.body.email).digest('hex');
+      var vendorDetail = new vendor({
+        deviceID: req.body.deviceID,
+        email: req.body.email,
+        model: req.body.model,
+        authToken: authtoken,
+        mobileNumber: req.body.mobileNumber,
+        appVersion: req.body.appVersion,
+        paytmNumber: req.body.paytmNumber,
+        mobikwikNumber: req.body.mobikwikNumber,
+        gcmId: req.body.gcmId,
+        androidSdk: req.body.androidSdk,
+        category: req.body.category,
+        isStationary: req.body.isStationary,
+        isMobile: req.body.isStationary,
+        isWalletInterested: req.body.isWalletInterested,
+        area: req.body.area,
+        shopNumber: req.body.shopNumber,
+        address: req.body.address,
+        landmark: req.body.landmark,
+        fromTiming: req.body.fromTiming,
+        toTiming: req.body.toTiming,
+        name: req.body.name,
+        isHomeDelivery: req.body.isHomeDelivery,
+        registerTime: new Date().getTime(),
+        imageUrl: '',
+        OTP: OTP,
+        speciality: req.body.speciality,
+        offDays: req.body.offDays
+          // ARN: endpointArn
+      });
+      vendorDetail.save(function(err, data) {
+        if (err) {
+          response.error = true;
+          response.errors = err;
+          response.status = 500;
+          response.userMessage = "Server internal error";
+          return SendResponse(res);
+        } else {
+          console.log("You are new User");
+          response.userMessage =
+            "Vendor registred successfuly";
+          response.status = 200;
+          response.data = vendorDetail.OTP;
+          return SendResponse(res);
+        }
       });
     }
     var filePath = './' + fileName;
