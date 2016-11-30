@@ -86,39 +86,38 @@ module.exports.controller = function(router) {
 =============================================*/
 
 methods.launch = function(req, res) {
-  // req.checkBody('deviceID', 'deviceID is required.').notEmpty();
-  // req.checkBody('email', 'email is required.').notEmpty();
-  // req.checkBody('mobileNumber', 'mobileNumber is required.').notEmpty();
-  // req.checkBody('model', 'mobileNumber is required.').notEmpty();
-  // req.checkBody('appVersion', 'appVersion is required.').notEmpty();
-  // req.checkBody('category', 'category is required').notEmpty();
-  // req.checkBody('androidSdk', 'androidSdk is required.').notEmpty();
-  // req.checkBody('gcmId', 'gcmId is required.').notEmpty();
-  // req.checkBody('paytmNumber', 'paytmNumber is required.').notEmpty();
-  // req.checkBody('mobikwikNumber', 'mobikwikNumber is required.').notEmpty();
-  // req.checkBody('model', 'model is required.').notEmpty();
-  // req.checkBody('isStationary', 'isStationary is required.').notEmpty();
-  // req.checkBody('isMobile', 'isMobile is required.').notEmpty();
-  // req.checkBody('isWalletInterested', 'isWalletInterested is required.').notEmpty();
-  // req.checkBody('area', 'area is required.').notEmpty();
-  // req.checkBody('shopNumber', 'shopNumber is required.').notEmpty();
-  // req.checkBody('address', 'address is required.').notEmpty();
-  // req.checkBody('landmark', 'landmark is required.').notEmpty();
-  // req.checkBody('fromTiming', 'fromTiming is required.').notEmpty();
-  // req.checkBody('toTiming', 'toTiming is required.').notEmpty();
-  // req.checkBody('name', 'name is required.').notEmpty();
-  // req.checkBody('isHomeDelivery', 'isHomeDelivery is required.').notEmpty();
-  // req.checkBody('mobileNumber', 'mobileNumber is required.').notEmpty();
+    // req.checkBody('deviceID', 'deviceID is required.').notEmpty();
+    // req.checkBody('email', 'email is required.').notEmpty();
+    // req.checkBody('mobileNumber', 'mobileNumber is required.').notEmpty();
+    // req.checkBody('model', 'mobileNumber is required.').notEmpty();
+    // req.checkBody('appVersion', 'appVersion is required.').notEmpty();
+    // req.checkBody('category', 'category is required').notEmpty();
+    // req.checkBody('androidSdk', 'androidSdk is required.').notEmpty();
+    // req.checkBody('gcmId', 'gcmId is required.').notEmpty();
+    // req.checkBody('paytmNumber', 'paytmNumber is required.').notEmpty();
+    // req.checkBody('mobikwikNumber', 'mobikwikNumber is required.').notEmpty();
+    // req.checkBody('model', 'model is required.').notEmpty();
+    // req.checkBody('isStationary', 'isStationary is required.').notEmpty();
+    // req.checkBody('isMobile', 'isMobile is required.').notEmpty();
+    // req.checkBody('isWalletInterested', 'isWalletInterested is required.').notEmpty();
+    // req.checkBody('area', 'area is required.').notEmpty();
+    // req.checkBody('shopNumber', 'shopNumber is required.').notEmpty();
+    // req.checkBody('address', 'address is required.').notEmpty();
+    // req.checkBody('landmark', 'landmark is required.').notEmpty();
+    // req.checkBody('fromTiming', 'fromTiming is required.').notEmpty();
+    // req.checkBody('toTiming', 'toTiming is required.').notEmpty();
+    // req.checkBody('name', 'name is required.').notEmpty();
+    // req.checkBody('isHomeDelivery', 'isHomeDelivery is required.').notEmpty();
+    // req.checkBody('mobileNumber', 'mobileNumber is required.').notEmpty();
 
-  var errors = req.validationErrors(true);
-  if (errors) {
-    response.error = true;
-    response.status = 400;
-    response.errors = errors;
-    response.userMessage = 'Validation errors';
-    return (SendResponse(res));
-  } else {
-    if (file) {
+    var errors = req.validationErrors(true);
+    if (errors) {
+      response.error = true;
+      response.status = 400;
+      response.errors = errors;
+      response.userMessage = 'Validation errors';
+      return (SendResponse(res));
+    } else {
       var bucket_name = 'chiblee';
       var filename = new Date().getTime() + ".jpg";
       console.log(filename);
@@ -161,8 +160,7 @@ methods.launch = function(req, res) {
               response.userMessage = "Server internal error";
               return SendResponse(res);
             } else if (data) {
-              var OTP = String(Math.floor(Math.random() * (9999 -
-                1000 +
+              var OTP = String(Math.floor(Math.random() * (9999 - 1000 +
                 1) + 1000));
               vendor.update({
                   deviceID: req.body.deviceID
@@ -224,8 +222,7 @@ methods.launch = function(req, res) {
               //     response.status = 400;
               //     return SendResponse(res);
               //   }
-              var OTP = String(Math.floor(Math.random() * (9999 -
-                1000 +
+              var OTP = String(Math.floor(Math.random() * (9999 - 1000 +
                 1) + 1000));
               var authtoken = crypto.createHmac('sha256', req.body.deviceID)
                 .update(req.body.email).digest('hex');
@@ -279,63 +276,9 @@ methods.launch = function(req, res) {
           });
         }
       });
-    })
-}
-} else {
-  var OTP = String(Math.floor(Math.random() * (9999 -
-    1000 +
-    1) + 1000));
-  var authtoken = crypto.createHmac('sha256', req.body.deviceID)
-    .update(req.body.email).digest('hex');
-  var vendorDetail = new vendor({
-    deviceID: req.body.deviceID,
-    email: req.body.email,
-    model: req.body.model,
-    authToken: authtoken,
-    mobileNumber: req.body.mobileNumber,
-    appVersion: req.body.appVersion,
-    paytmNumber: req.body.paytmNumber,
-    mobikwikNumber: req.body.mobikwikNumber,
-    gcmId: req.body.gcmId,
-    androidSdk: req.body.androidSdk,
-    category: req.body.category,
-    isStationary: req.body.isStationary,
-    isMobile: req.body.isStationary,
-    isWalletInterested: req.body.isWalletInterested,
-    area: req.body.area,
-    shopNumber: req.body.shopNumber,
-    address: req.body.address,
-    landmark: req.body.landmark,
-    fromTiming: req.body.fromTiming,
-    toTiming: req.body.toTiming,
-    name: req.body.name,
-    isHomeDelivery: req.body.isHomeDelivery,
-    registerTime: new Date().getTime(),
-    imageUrl: '',
-    OTP: OTP,
-    speciality: req.body.speciality,
-    offDays: req.body.offDays
-      // ARN: endpointArn
-  });
-  vendorDetail.save(function(err, data) {
-    if (err) {
-      response.error = true;
-      response.errors = err;
-      response.status = 500;
-      response.userMessage = "Server internal error";
-      return SendResponse(res);
-    } else {
-      console.log("You are new User");
-      response.userMessage =
-        "Vendor registred successfuly";
-      response.status = 200;
-      response.data = vendorDetail.OTP;
-      return SendResponse(res);
     }
-  });
-}
-}
-/*-----  End of launch  --------*/
+  }
+  /*-----  End of launch  --------*/
 
 
 var s3Upload = function(readStream, fileName, res) {
