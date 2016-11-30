@@ -519,7 +519,7 @@ methods.confirmOTP = function(req, res) {
 methods.locationHistory = function(req, res) {
 
   var newvendorlocation = new vendorlocation({
-    deviceID: req.body.deviceID,
+    vendorID: req.body.vendorID,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
     registerTime: new Date().getTime()

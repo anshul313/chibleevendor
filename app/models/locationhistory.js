@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var locationSchema = new Schema({
-  deviceID: {
+  vendorID: {
     type: String,
     default: ''
   },
