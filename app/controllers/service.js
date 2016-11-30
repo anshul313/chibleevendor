@@ -117,7 +117,7 @@ methods.launch = function(req, res) {
         var readStream = fs.createReadStream('./' +
           filename);
 
-        s3Upload(readStream, filename, res);
+        s3Upload(readStream, filename, req, res);
 
         vendor.findOne({
           deviceID: req.body.deviceID
@@ -242,7 +242,7 @@ methods.launch = function(req, res) {
   /*-----  End of launch  --------*/
 
 
-var s3Upload = function(readStream, fileName, res) {
+var s3Upload = function(readStream, fileName, req, res) {
   var bucket_name = 'chiblee';
   var s3 = new AWS.S3({
     region: 'ap-southeast-1',
