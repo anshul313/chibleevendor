@@ -630,7 +630,7 @@ methods.locationHistory = function(req, res) {
       registerTime: new Date().getTime(),
       isOpen: req.body.isOpen,
       openTime: opentime,
-      openTime: closetime
+      closeTime: closetime
     });
     newvendorlocation.save(function(err) {
       if (err) {
