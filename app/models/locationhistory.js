@@ -19,11 +19,9 @@ var locationSchema = new Schema({
     type: Number,
     default: 0
   },
-  openTime: {
-    type: Date
-  },
-  closeTime: {
-    type: Date
+  isOpen: {
+    type: Number,
+    default: 0
   }
 });
 

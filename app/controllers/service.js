@@ -613,30 +613,29 @@ methods.confirmOTP = function(req, res) {
 =============================================*/
 
 methods.locationHistory = function(req, res) {
-
-  var newvendorlocation = new vendorlocation({
-    vendorID: req.body.vendorID,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
-    registerTime: new Date().getTime(),
-    openTime: req.body.openTime || new Date,
-    closeTime: req.body.closeTime || new Date()
-  });
-  newvendorlocation.save(function(err) {
-    if (err) {
-      response.error = true;
-      response.errors = err;
-      response.status = 500;
-      response.userMessage =
-        "Server internal error";
-      return SendResponse(res);
-    } else {
-      response.userMessage = "location inserted successfuly";
-      response.status = 200;
-      return SendResponse(res);
-    }
-  });
-
+  if (req.body.isOpen != -1) {
+    var newvendorlocation = new vendorlocation({
+      vendorID: req.body.vendorID,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      registerTime: new Date().getTime(),
+      isOpen: req.body.isOpen
+    });
+    newvendorlocation.save(function(err) {
+      if (err) {
+        response.error = true;
+        response.errors = err;
+        response.status = 500;
+        response.userMessage =
+          "Server internal error";
+        return SendResponse(res);
+      } else {
+        response.userMessage = "location inserted successfuly";
+        response.status = 200;
+        return SendResponse(res);
+      }
+    });
+  }
 }
 
 /*-----  End of locationHistory   --------*/
