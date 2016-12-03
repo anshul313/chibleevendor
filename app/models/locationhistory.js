@@ -20,12 +20,10 @@ var locationSchema = new Schema({
     default: 0
   },
   openTime: {
-    type: Number,
-    default: 0
+    type: Date
   },
   closeTime: {
-    type: Number,
-    default: 0
+    type: Date
   }
 });
 
