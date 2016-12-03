@@ -615,14 +615,14 @@ methods.confirmOTP = function(req, res) {
 methods.locationHistory = function(req, res) {
   var opentime = 0;
   var closetime = 0;
-  if (req.body.isOpen == 0) {
+  if (parseInt(req.body.isOpen) == 0) {
     closetime = new Date().getTime()
   }
-  if (req.body.isOpen == 1) {
+  if (parseInt(req.body.isOpen) == 1) {
     opentime = new Date().getTime()
   }
 
-  if (req.body.isOpen != -1) {
+  if (parseInt(req.body.isOpen) != -1) {
     var newvendorlocation = new vendorlocation({
       vendorID: req.body.vendorID,
       latitude: req.body.latitude,
