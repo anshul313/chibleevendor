@@ -110,6 +110,10 @@ var vendorSchema = new Schema({
   offDays: {
     type: String,
     default: ''
+  },
+  isActive: {
+    type: Boolean,
+    default: false
   }
 });
 
