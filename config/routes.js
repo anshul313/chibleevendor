@@ -16,7 +16,8 @@ module.exports = function(router) {
   fs.readdirSync(config.root + '/app/controllers').forEach(function(file) {
     if (~file.indexOf('.js')) {
       console.log(file);
-      var route = require(config.root + '/app/controllers/' + file).controller(router);
+      var route = require(config.root + '/app/controllers/' + file).controller(
+        router);
       console.log("imported");
     }
   });
@@ -24,7 +25,8 @@ module.exports = function(router) {
 
   router.use(function(err, req, res, next) {
     // treat as 404
-    if (err.message && (~err.message.indexOf('not found') || (~err.message.indexOf('Cast to ObjectId failed')))) {
+    if (err.message && (~err.message.indexOf('not found') || (~err.message
+        .indexOf('Cast to ObjectId failed')))) {
       return next();
     }
 
