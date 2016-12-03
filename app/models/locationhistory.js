@@ -18,8 +18,15 @@ var locationSchema = new Schema({
   registerTime: {
     type: Number,
     default: 0
+  },
+  openTime: {
+    type: Number,
+    default: 0
+  },
+  closeTime: {
+    type: Number,
+    default: 0
   }
 });
-
 
 module.exports = mongoose.model('Location', locationSchema);

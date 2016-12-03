@@ -618,7 +618,9 @@ methods.locationHistory = function(req, res) {
     vendorID: req.body.vendorID,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
-    registerTime: new Date().getTime()
+    registerTime: new Date().getTime(),
+    openTime: req.body.openTime,
+    closeTime: req.body.closeTime
   });
   newvendorlocation.save(function(err) {
     if (err) {
