@@ -661,16 +661,14 @@ methods.locationHistory = function(req, res) {
 
 /*-----  End of locationHistory   --------*/
 
-
-
 /*===========================================
-***  usertovendorchat Notification  Trigger Service   ***
+***  vendortouserchat Notification  Trigger Service   ***
 =============================================*/
 
-methods.usertovendorchat = function(req, res) {
+methods.vendortouserchat = function(req, res) {
 
   var message = new gcm.Message();
-  var sender = new gcm.Sender('AIzaSyCpG_J5buAuWMM1p3f6geFVlCPJ5139o2Q');
+  var sender = new gcm.Sender('AIzaSyB4P3z-0xUTn3vIVpfvEuuI3er4UCzPUM0');
 
   message.addNotification({
     userName: req.body.userName,
@@ -751,18 +749,18 @@ methods.usertovendorchat = function(req, res) {
   });
 }
 
-/*-----  End of usertovendorchat Notification Trigger Service  --------*/
+/*-----  End of vendortouserchat Notification Trigger Service  --------*/
 
 /*===========================================
-***  vendortouserchat Notification  Trigger Service   ***
+***  usertovendorchat Notification  Trigger Service   ***
 =============================================*/
 
-methods.vendortouserchat = function(req, res) {
+methods.usertovendorchat = function(req, res) {
 
   var message = new gcm.Message();
 
+  var sender = new gcm.Sender('AIzaSyCpG_J5buAuWMM1p3f6geFVlCPJ5139o2Q');
 
-  var sender = new gcm.Sender('AIzaSyB4P3z-0xUTn3vIVpfvEuuI3er4UCzPUM0');
   message.addNotification({
     "messageText": req.body.messageText,
     "messageStatus": req.body.messageStatus
@@ -842,4 +840,4 @@ methods.vendortouserchat = function(req, res) {
   });
 }
 
-/*-----  End of vendortouserchat Notification Trigger Service  --------*/
+/*-----  End of usertovendorchat Notification Trigger Service  --------*/
