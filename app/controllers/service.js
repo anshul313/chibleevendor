@@ -722,17 +722,11 @@ methods.vendortouserchat = function(req, res) {
                   response.error = false;
                   response.status = 200;
                   response.userMessage = 'successfully sent';
-                  response.data = {
-                    vendorId: req.body.vendorId;
-                    vendorName: req.body.vendorName;
-                    userName: req.body.userName;
-                    vendorGcmId: req.body.vendorGcmId;
-                    messageText: req.body.messageText;
-                    messageStatus: req.body.messageStatus;
-                    platform: req.body.platform;
-                    userGcmId: req.body.userGcmId;
-                  };
-
+                  response.data = result;
+                  response.userName = req.body.userName;
+                  response.vendorGcmId = req.body.vendorGcmId;
+                  response.messageText = req.body.messageText;
+                  response.userGcmId = req.body.userGcmId;
                   db.close();
                   return (SendResponse(res));
                 });
@@ -816,16 +810,15 @@ methods.usertovendorchat = function(req, res) {
                   response.error = false;
                   response.status = 200;
                   response.userMessage = 'successfully sent';
-                  response.data = {
-                    vendorId: req.body.vendorId;
-                    vendorName: req.body.vendorName;
-                    userName: req.body.userName;
-                    vendorGcmId: req.body.vendorGcmId;
-                    messageText: req.body.messageText;
-                    messageStatus: req.body.messageStatus;
-                    platform: req.body.platform;
-                    userGcmId: req.body.userGcmId;
-                  };
+                  response.data = result;
+                  response.userId = req.body.userId;
+                  response.userName = req.body.userName;
+                  response.vendorName = req.body.vendorName;
+                  response.userGcmId = req.body.userGcmId;
+                  response.messageText = req.body.messageText;
+                  response.messageStatus = req.body.messageStatus;
+                  response.platform = req.body.platform;
+                  response.vendorGcmId = req.body.vendorGcmId;
                   db.close();
                   return (SendResponse(res));
                 });
