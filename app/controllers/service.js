@@ -671,8 +671,10 @@ methods.vendortouserchat = function(req, res) {
   var sender = new gcm.Sender('AIzaSyB4P3z-0xUTn3vIVpfvEuuI3er4UCzPUM0');
 
   message.addNotification({
-    "messageText": req.body.messageText,
-    "messageStatus": req.body.messageStatus
+    userName: req.body.userName,
+    vendorGcmId: req.body.vendorGcmId,
+    messageText: req.body.messageText,
+    userGcmId: req.body.userGcmId
   });
 
   sender.send(message, {
