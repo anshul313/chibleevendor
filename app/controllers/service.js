@@ -723,10 +723,10 @@ methods.vendortouserchat = function(req, res) {
                   response.status = 200;
                   response.userMessage = 'successfully sent';
                   response.data = {
-                    userName: req.body.userName;
-                    vendorGcmId: req.body.vendorGcmId;
-                    messageText: req.body.messageText;
-                    userGcmId: req.body.userGcmId;
+                    userName: req.body.userName,
+                    vendorGcmId: req.body.vendorGcmId,
+                    messageText: req.body.messageText,
+                    userGcmId: req.body.userGcmId
                   };
 
                   db.close();
