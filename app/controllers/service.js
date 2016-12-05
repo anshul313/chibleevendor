@@ -20,6 +20,9 @@ var vendorlocation = mongoose.model('Location');
 var gcm = require('node-gcm');
 var accessKey = 'AKIAIAIBZ2HSPX3L35DA';
 var secretKey = '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';
+var chat = mongoose.model('Chat');
+
+
 
 // config.amazon.accessKeyId = "AKIAJPFKQ6DYJVOHFFKA";
 // config.amazon.secretAccessKey = "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";
@@ -664,7 +667,6 @@ methods.locationHistory = function(req, res) {
 methods.vendortouserchat = function(req, res) {
 
   var message = new gcm.Message();
-
   var sender = new gcm.Sender('AIzaSyCpG_J5buAuWMM1p3f6geFVlCPJ5139o2Q');
 
   message.addNotification({
@@ -683,12 +685,43 @@ methods.vendortouserchat = function(req, res) {
       response.userMessage = 'error occured';
       return (SendResponse(res));
     } else {
-      console.log(response);
-      response.error = false;
-      response.status = 200;
-      response.userMessage = 'successfully sent'
-      response.data = result
-    }
+      db.collection('chibleeusers').find({
+          pushToken: req.body.userGcmId
+        }, function(err, doc) {
+          if (err) {
+            console.log(err);
+            response.error = true;
+            response.status = 500;
+            response.errors = err;
+            response.userMessage = 'error occured';
+            return (SendResponse(res));
+          } else {
+
+            var chatMessage = new({
+              vendorID: req.body.vendorId,
+              userID: doc._id,
+              messageText: req.body.messageText,
+              messageStatus: req.body.messageStatus,
+              registerTime: new Date().getTime()
+            });
+            chatMessage.save(function(err) {
+              if (err) {
+                console.log(err);
+                response.error = true;
+                response.status = 500;
+                response.errors = err;
+                response.userMessage = 'error occured';
+                return (SendResponse(res));
+              }
+              console.log(response);
+              response.error = false;
+              response.status = 200;
+              response.userMessage = 'successfully sent'
+              response.data = result
+            });
+          }
+        }
+      });
   });
 }
 
@@ -720,12 +753,43 @@ methods.usertovendorchat = function(req, res) {
       response.userMessage = 'error occured';
       return (SendResponse(res));
     } else {
-      console.log(response);
-      response.error = false;
-      response.status = 200;
-      response.userMessage = 'successfully sent'
-      response.data = result
-    }
+      db.collection('cleanvendors').find({
+          gcmId: req.body.userGcmId
+        }, function(err, doc) {
+          if (err) {
+            console.log(err);
+            response.error = true;
+            response.status = 500;
+            response.errors = err;
+            response.userMessage = 'error occured';
+            return (SendResponse(res));
+          } else {
+
+            var chatMessage = new({
+              vendorID: req.body.vendorId,
+              userID: doc._id,
+              messageText: req.body.messageText,
+              messageStatus: req.body.messageStatus,
+              registerTime: new Date().getTime()
+            });
+            chatMessage.save(function(err) {
+              if (err) {
+                console.log(err);
+                response.error = true;
+                response.status = 500;
+                response.errors = err;
+                response.userMessage = 'error occured';
+                return (SendResponse(res));
+              }
+              console.log(response);
+              response.error = false;
+              response.status = 200;
+              response.userMessage = 'successfully sent'
+              response.data = result
+            });
+          }
+        }
+      });
   });
 }
 
