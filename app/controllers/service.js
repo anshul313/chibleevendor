@@ -705,7 +705,9 @@ methods.vendortouserchat = function(req, res) {
                   userID: doc._id,
                   messageText: req.body.messageText,
                   messageStatus: req.body.messageStatus,
-                  registerTime: new Date().getTime()
+                  registerTime: new Date().getTime(),
+                  userName: req.body.messageText,
+                  vendorName: req.body.messageText
                 });
                 chatMessage.save(function(err) {
                   if (err) {
@@ -723,6 +725,7 @@ methods.vendortouserchat = function(req, res) {
                   response.data = result;
                   response.vendorId = req.body.vendorId;
                   response.vendorName = req.body.vendorName;
+                  response.userName = req.body.userName;
                   response.vendorGcmId = req.body.vendorGcmId;
                   response.messageText = req.body.messageText;
                   response.messageStatus = req.body.messageStatus;
@@ -794,7 +797,9 @@ methods.usertovendorchat = function(req, res) {
                   userID: doc._id,
                   messageText: req.body.messageText,
                   messageStatus: req.body.messageStatus,
-                  registerTime: new Date().getTime()
+                  registerTime: new Date().getTime(),
+                  userName: req.body.messageText,
+                  vendorName: req.body.messageText
                 });
                 chatMessage.save(function(err) {
                   if (err) {
@@ -812,6 +817,7 @@ methods.usertovendorchat = function(req, res) {
                   response.data = result;
                   response.userId = req.body.userId;
                   response.userName = req.body.userName;
+                  response.vendorName = req.body.vendorName;
                   response.userGcmId = req.body.userGcmId;
                   response.messageText = req.body.messageText;
                   response.messageStatus = req.body.messageStatus;

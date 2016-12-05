@@ -11,6 +11,14 @@ var chatSchema = new Schema({
     type: String,
     default: ''
   },
+  vendorName: {
+    type: String,
+    default: ''
+  },
+  userName: {
+    type: String,
+    default: ''
+  },
   messageText: {
     type: String,
     default: ''
