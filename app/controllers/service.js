@@ -716,8 +716,16 @@ methods.vendortouserchat = function(req, res) {
             console.log(response);
             response.error = false;
             response.status = 200;
-            response.userMessage = 'successfully sent'
-            response.data = result
+            response.userMessage = 'successfully sent';
+            response.data = result;
+            response.vendorId = req.body.vendorId;
+            response.vendorName = req.body.vendorName;
+            response.vendorGcmId = req.body.vendorGcmId;
+            response.messageText = req.body.messageText;
+            response.messageStatus = req.body.messageStatus;
+            response.platform = req.body.platform;
+            response.userGcmId = req.body.userGcmId;
+            return (SendResponse(res));
           });
         }
       });
@@ -784,8 +792,16 @@ methods.usertovendorchat = function(req, res) {
             console.log(response);
             response.error = false;
             response.status = 200;
-            response.userMessage = 'successfully sent'
-            response.data = result
+            response.userMessage = 'successfully sent';
+            response.data = result;
+            response.userId = req.body.userId;
+            response.userName = req.body.userName;
+            response.userGcmId = req.body.userGcmId;
+            response.messageText = req.body.messageText;
+            response.messageStatus = req.body.messageStatus;
+            response.platform = req.body.platform;
+            response.vendorGcmId = req.body.vendorGcmId;
+            return (SendResponse(res));
           });
         }
       });
