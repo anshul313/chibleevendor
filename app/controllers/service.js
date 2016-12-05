@@ -706,8 +706,8 @@ methods.vendortouserchat = function(req, res) {
                   messageText: req.body.messageText,
                   messageStatus: req.body.messageStatus,
                   registerTime: new Date().getTime(),
-                  userName: req.body.messageText,
-                  vendorName: req.body.messageText
+                  userName: req.body.userName,
+                  vendorName: req.body.vendorName
                 });
                 chatMessage.save(function(err) {
                   if (err) {
@@ -798,8 +798,8 @@ methods.usertovendorchat = function(req, res) {
                   messageText: req.body.messageText,
                   messageStatus: req.body.messageStatus,
                   registerTime: new Date().getTime(),
-                  userName: req.body.messageText,
-                  vendorName: req.body.messageText
+                  userName: req.body.userName,
+                  vendorName: req.body.vendorName
                 });
                 chatMessage.save(function(err) {
                   if (err) {
