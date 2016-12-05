@@ -661,11 +661,13 @@ methods.locationHistory = function(req, res) {
 
 /*-----  End of locationHistory   --------*/
 
+
+
 /*===========================================
 ***  vendortouserchat Notification  Trigger Service   ***
 =============================================*/
 
-methods.vendortouserchat = function(req, res) {
+methods.usertovendorchat = function(req, res) {
 
   var message = new gcm.Message();
   var sender = new gcm.Sender('AIzaSyB4P3z-0xUTn3vIVpfvEuuI3er4UCzPUM0');
@@ -755,7 +757,7 @@ methods.vendortouserchat = function(req, res) {
 ***  usertovendorchat Notification  Trigger Service   ***
 =============================================*/
 
-methods.usertovendorchat = function(req, res) {
+methods.vendortouserchat = function(req, res) {
 
   var message = new gcm.Message();
 
