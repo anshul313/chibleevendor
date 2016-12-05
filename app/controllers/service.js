@@ -72,8 +72,14 @@ module.exports.controller = function(router) {
     .post(methods.locationHistory)
 
   router
-    .route('/pushnotification')
-    .post(methods.pushNotification);
+    .route('/vendortouserchat')
+    .post(methods.vendortouserchat);
+
+  router
+    .route('/usertovendorchat')
+    .post(methods.usertovendorchat);
+
+
 
 }
 
@@ -652,88 +658,75 @@ methods.locationHistory = function(req, res) {
 /*-----  End of locationHistory   --------*/
 
 /*===========================================
-***  Notification Trigger Service   ***
+***  vendortouserchat Notification  Trigger Service   ***
 =============================================*/
 
-methods.pushNotification = function(req, res) {
-  var arn;
-  device.findOne({
-    mobileNumber: req.body.mobileNumber
-  }, function(err, data) {
+methods.vendortouserchat = function(req, res) {
+
+  var message = new gcm.Message();
+
+  var sender = new gcm.Sender('AIzaSyCpG_J5buAuWMM1p3f6geFVlCPJ5139o2Q');
+
+  message.addNotification({
+    "messageText": req.body.messageText,
+    "messageStatus": req.body.messageStatus
+  });
+
+  sender.send(message, {
+    registrationTokens: [req.body.userGcmId]
+  }, function(err, result) {
     if (err) {
+      console.log(err);
       response.error = true;
       response.status = 500;
       response.errors = err;
       response.userMessage = 'error occured';
       return (SendResponse(res));
-    } else if (!data) {
-      response.error = true;
-      response.status = 400;
-      response.errors = err;
-      response.userMessage = 'mobileNumber not Found';
-      return (SendResponse(res));
     } else {
-
-      // arn = data.ARN;
-      //
-      // AndroidARN = new SNS({
-      //   platform: SNS.SUPPORTED_PLATFORMS.ANDROID,
-      //   region: config.amazon.region || 'ap-southeast-1',
-      //   apiVersion: '2010-03-31',
-      //   accessKeyId: config.amazon.accessKeyId,
-      //   secretAccessKey: config.amazon.secretAccessKey,
-      //   platformApplicationArn: 'arn:aws:sns:ap-southeast-1:552905730771:app/GCM/QyklyApp'
-      // });
-      //
-      // var activity = {
-      //   "signature": req.body.signature,
-      //   "smsText": req.body.smsText
-      // }
-
-      // Send a json data to the client
-      // console.log('old arn is : ' + arn);
-      // AndroidARN.sendMessage(arn, JSON.stringify(v2payload.exec(
-      //   activity, 'Android')), function(err, messageId) {
-      //   if (err) {
-      //     response.error = true;
-      //     response.status = 400;
-      //     response.errors = err;
-      //     response.userMessage = 'error occured';
-      //     return (SendResponse(res));
-      //   } else {
-      //     console.log(messageId);
-      //     response.error = false;
-      //     response.status = 200;
-      //     response.data = activity;
-      //     return (SendResponse(res));
-      //   }
-      //
-      // });
-
-      var message = new gcm.Message({
-        data: {
-          key1: 'msg1'
-        }
-      });
-      var sender = new gcm.Sender(
-        'AIzaSyCpG_J5buAuWMM1p3f6geFVlCPJ5139o2Q');
-      var regTokens = data.pushToken;
-
-      sender.send(message, {
-        registrationTokens: regTokens
-      }, function(err, response) {
-        if (err) {
-          response.error = true;
-          response.status = 500;
-          response.errors = err;
-          response.userMessage = 'error occured';
-          return (SendResponse(res));
-        } else {
-          console.log(response);
-        }
-      });
+      console.log(response);
+      response.error = false;
+      response.status = 200;
+      response.userMessage = 'successfully sent'
+      response.data = result
     }
   });
 }
 
-/*-----  End of Notification Trigger Service  --------*/
+/*-----  End of vendortouserchat Notification Trigger Service  --------*/
+
+/*===========================================
+***  usertovendorchat Notification  Trigger Service   ***
+=============================================*/
+
+methods.usertovendorchat = function(req, res) {
+
+  var message = new gcm.Message();
+
+  var sender = new gcm.Sender('AIzaSyCpG_J5buAuWMM1p3f6geFVlCPJ5139o2Q');
+
+  message.addNotification({
+    "messageText": req.body.messageText,
+    "messageStatus": req.body.messageStatus
+  });
+
+  sender.send(message, {
+    registrationTokens: [req.body.vendorGcmId]
+  }, function(err, result) {
+    if (err) {
+      console.log(err);
+      response.error = true;
+      response.status = 500;
+      response.errors = err;
+      response.userMessage = 'error occured';
+      return (SendResponse(res));
+    } else {
+      console.log(response);
+      response.error = false;
+      response.status = 200;
+      response.userMessage = 'successfully sent'
+      response.data = result
+    }
+  });
+}
+
+/*-----  End of usertovendorchat Notification Trigger Service  --------*/
