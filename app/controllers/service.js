@@ -762,8 +762,10 @@ methods.usertovendorchat = function(req, res) {
   var sender = new gcm.Sender('AIzaSyCpG_J5buAuWMM1p3f6geFVlCPJ5139o2Q');
 
   message.addNotification({
-    "messageText": req.body.messageText,
-    "messageStatus": req.body.messageStatus
+    vendorGcmId: req.body.vendorGcmId,
+    messageText: req.body.messageText,
+    userGcmId: req.body.userGcmId,
+    vendorName: req.body.vendorName,
   });
 
   sender.send(message, {
