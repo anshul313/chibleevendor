@@ -722,11 +722,13 @@ methods.vendortouserchat = function(req, res) {
                   response.error = false;
                   response.status = 200;
                   response.userMessage = 'successfully sent';
-                  response.data = result;
-                  response.userName = req.body.userName;
-                  response.vendorGcmId = req.body.vendorGcmId;
-                  response.messageText = req.body.messageText;
-                  response.userGcmId = req.body.userGcmId;
+                  response.data = {
+                    userName: req.body.userName;
+                    vendorGcmId: req.body.vendorGcmId;
+                    messageText: req.body.messageText;
+                    userGcmId: req.body.userGcmId;
+                  };
+
                   db.close();
                   return (SendResponse(res));
                 });
