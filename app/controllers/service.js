@@ -508,12 +508,14 @@ methods.locationHistory = function(req, res) {
 =============================================*/
 
 methods.vendortouserchat = function(req, res) {
+
   var sender = '';
+
   var message = new gcm.Message();
-  if (req.body.platform === 'ios') {
-    var sender = new gcm.Sender('AIzaSyBX594051r_jgt0_sCpH4X5AlmbVJX5s-s');
-  } else {
+  if (req.body.platform != 'ios') {
     var sender = new gcm.Sender('AIzaSyB4P3z-0xUTn3vIVpfvEuuI3er4UCzPUM0');
+  } else {
+    var sender = new gcm.Sender('AIzaSyBX594051r_jgt0_sCpH4X5AlmbVJX5s-s');
   }
 
 
