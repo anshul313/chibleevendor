@@ -786,7 +786,7 @@ methods.usertovendorchat = function(req, res) {
         MongoClient.connect('mongodb://54.169.192.5:12528/chiblee',
           function(err, db) {
             db.collection('cleanvendors').findOne({
-              gcmId: req.body.userGcmId
+              "gcmId": req.body.vendorGcmId
             }, function(err, doc) {
               if (err) {
                 console.log(err);
@@ -815,7 +815,6 @@ methods.usertovendorchat = function(req, res) {
                     response.userMessage = 'error occured';
                     return (SendResponse(res));
                   }
-                  console.log(response);
                   response.error = false;
                   response.status = 200;
                   response.userMessage = 'successfully sent';
