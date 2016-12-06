@@ -767,6 +767,8 @@ methods.usertovendorchat = function(req, res) {
     messageText: req.body.messageText,
     userGcmId: req.body.userGcmId,
     vendorName: req.body.vendorName,
+    userId: req.body.userId,
+    userName: req.body.userName
   });
 
   sender.send(message, {
