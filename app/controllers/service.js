@@ -509,7 +509,6 @@ methods.locationHistory = function(req, res) {
 
 methods.vendortouserchat = function(req, res) {
 
-  var sender = '';
 
   var message = new gcm.Message();
   if (req.body.platform != 'ios') {
@@ -518,6 +517,7 @@ methods.vendortouserchat = function(req, res) {
     var sender = new gcm.Sender('AIzaSyBX594051r_jgt0_sCpH4X5AlmbVJX5s-s');
   }
 
+  console.log(sender);
 
   message.addNotification({
     userName: req.body.userName,
