@@ -634,7 +634,7 @@ methods.usertovendorchat = function(req, res) {
       return (SendResponse(res));
     } else {
       if (result.success == 1) {
-        MongoClient.connect('mongodb://54.169.192.5:12528/chiblee',
+        MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
           function(err, db) {
             db.collection('cleanvendors').findOne({
               "gcmId": req.body.vendorGcmId
@@ -714,7 +714,7 @@ methods.getchathistory = function(req, res) {
   var authtoken = req.header['Authorization'];
   console.log(vendorId);
   console.log(authtoken);
-  MongoClient.connect('mongodb://54.169.192.5:12528/chiblee',
+  MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
     function(err, db) {
       if (err) {
         console.log(err);
