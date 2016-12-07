@@ -38,7 +38,7 @@ var connect = function() {
 		// pass: 'qykly123'
 	};
 	var connection = mongoose.connect(
-		'mongodb://54.169.192.5:12528/chiblee',
+		'mongodb://139.59.9.200:12528/chiblee',
 		options);;
 	autoIncrement.initialize(connection);
 	// mongoose.connect('mongodb://localhost/quickly', options);
