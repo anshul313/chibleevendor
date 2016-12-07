@@ -540,7 +540,7 @@ methods.vendortouserchat = function(req, res) {
       return (SendResponse(res));
     } else {
       if (result.success == 1) {
-        MongoClient.connect('mongodb://54.169.192.5:12528/chiblee',
+        MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
           function(err, db) {
             db.collection('chibleeusers').findOne({
               pushToken: req.body.userGcmId
