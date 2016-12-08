@@ -652,8 +652,8 @@ methods.usertovendorchat = function(req, res) {
               } else {
 
                 var chatMessage = new chat({
-                  vendorID: req.body.vendorId,
-                  userID: doc._id,
+                  vendorID: doc._id,
+                  userID: req.body.userId,
                   messageText: req.body.messageText,
                   messageStatus: req.body.messageStatus,
                   registerTime: new Date().getTime(),
