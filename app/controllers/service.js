@@ -564,7 +564,8 @@ methods.vendortouserchat = function(req, res) {
                   messageStatus: req.body.messageStatus,
                   registerTime: new Date().getTime(),
                   userName: req.body.userName,
-                  vendorName: req.body.vendorName
+                  vendorName: req.body.vendorName,
+                  uuid: req.body.uuid
                 });
                 chatMessage.save(function(err) {
                   if (err) {
@@ -583,7 +584,8 @@ methods.vendortouserchat = function(req, res) {
                     userName: req.body.userName,
                     vendorGcmId: req.body.vendorGcmId,
                     messageText: req.body.messageText,
-                    userGcmId: req.body.userGcmId
+                    userGcmId: req.body.userGcmId,
+                    uuid: req.body.uuid
                   };
 
                   db.close();
@@ -678,7 +680,6 @@ methods.usertovendorchat = function(req, res) {
                     messageText: req.body.messageText,
                     userGcmId: req.body.userGcmId,
                     userId: req.body.userId,
-
                   };
                   response.data = result;
                   response.userId = req.body.userId;

@@ -27,6 +27,10 @@ var chatSchema = new Schema({
     type: String,
     default: ''
   },
+  uuid: {
+    type: String,
+    default: ''
+  },
   registerTime: {
     type: Number,
     default: 0
