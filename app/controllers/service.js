@@ -742,10 +742,6 @@ methods.getchathistory = function(req, res) {
               response.userMessage = 'error occured';
               return (SendResponse(res));
             } else {
-              for (var i = 0; i < data.length; i++) {
-                data[i].insertionDate = new Date(data[i].insertionDate)
-                  .toUTCString();
-              }
               response.error = false;
               response.status = 200;
               response.userMessage = 'successfully sent';
