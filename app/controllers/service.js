@@ -545,7 +545,7 @@ methods.vendortouserchat = function(req, res) {
       if (result.success == 1) {
         MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
           function(err, db) {
-            db.collection('vendordetails').findOne({
+            db.collection('chibleeusers').findOne({
               pushToken: req.body.userGcmId
             }, function(err, doc) {
               if (err) {
