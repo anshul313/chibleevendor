@@ -15,6 +15,14 @@ var chatSchema = new Schema({
     type: String,
     default: ''
   },
+  userGcmId: {
+    type: String,
+    default: ''
+  },
+  vendorGcmId: {
+    type: String,
+    default: ''
+  },
   userName: {
     type: String,
     default: ''

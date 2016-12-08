@@ -565,7 +565,9 @@ methods.vendortouserchat = function(req, res) {
                   insertionDate: new Date().getTime(),
                   userName: req.body.userName,
                   vendorName: req.body.vendorName,
-                  uuid: req.body.uuid
+                  uuid: req.body.uuid,
+                  userGcmId: req.body.userGcmId,
+                  vendorGcmId: req.body.vendorGcmId,
                 });
                 chatMessage.save(function(err) {
                   if (err) {
@@ -658,7 +660,9 @@ methods.usertovendorchat = function(req, res) {
                   messageStatus: 'sent',
                   insertionDate: new Date().getTime(),
                   userName: req.body.userName,
-                  vendorName: req.body.vendorName
+                  vendorName: req.body.vendorName,
+                  userGcmId: req.body.userGcmId,
+                  vendorGcmId: req.body.vendorGcmId,
                 });
                 chatMessage.save(function(err) {
                   if (err) {
