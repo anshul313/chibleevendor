@@ -655,7 +655,7 @@ methods.usertovendorchat = function(req, res) {
                   vendorID: doc._id,
                   userID: req.body.userId,
                   messageText: req.body.messageText,
-                  messageStatus: req.body.messageStatus,
+                  messageStatus: 'sent',
                   registerTime: new Date().getTime(),
                   userName: req.body.userName,
                   vendorName: req.body.vendorName
