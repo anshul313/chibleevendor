@@ -562,7 +562,7 @@ methods.vendortouserchat = function(req, res) {
                   userID: doc._id,
                   messageText: req.body.messageText,
                   messageStatus: req.body.messageStatus,
-                  registerTime: new Date().getTime(),
+                  insertionDate: new Date().getTime(),
                   userName: req.body.userName,
                   vendorName: req.body.vendorName,
                   uuid: req.body.uuid
@@ -584,8 +584,7 @@ methods.vendortouserchat = function(req, res) {
                     userName: req.body.userName,
                     vendorGcmId: req.body.vendorGcmId,
                     messageText: req.body.messageText,
-                    userGcmId: req.body.userGcmId,
-                    uuid: req.body.uuid
+                    userGcmId: req.body.userGcmId
                   };
 
                   db.close();
@@ -658,7 +657,7 @@ methods.usertovendorchat = function(req, res) {
                   userID: req.body.userId,
                   messageText: req.body.messageText,
                   messageStatus: 'sent',
-                  registerTime: new Date().getTime(),
+                  insertionDate: new Date().getTime(),
                   userName: req.body.userName,
                   vendorName: req.body.vendorName
                 });
@@ -733,7 +732,7 @@ methods.getchathistory = function(req, res) {
             vendorID: vendorId,
             userID: doc._id
           }).sort({
-            'registerTime': -1
+            'insertionDate': -1
           }).exec(function(err, data) {
             if (err) {
               console.log(err);
@@ -743,6 +742,10 @@ methods.getchathistory = function(req, res) {
               response.userMessage = 'error occured';
               return (SendResponse(res));
             } else {
+              for (var i = 0; i < data.length; i++) {
+                data[i].insertionDate = new Date(data[i].insertionDate)
+                  .toUTCString();
+              }
               response.error = false;
               response.status = 200;
               response.userMessage = 'successfully sent';

@@ -31,7 +31,7 @@ var chatSchema = new Schema({
     type: String,
     default: ''
   },
-  registerTime: {
+  insertionDate: {
     type: Number,
     default: 0
   }
