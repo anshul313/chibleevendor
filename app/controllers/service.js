@@ -729,7 +729,7 @@ methods.getchathistory = function(req, res) {
         chat.find({
           vendorID: vendorId,
         }).sort({
-          'insertionDate': -1
+          'insertionDate': 1
         }).exec(function(err, data) {
           console.log('data : ', data);
           if (err) {
