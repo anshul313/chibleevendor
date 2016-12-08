@@ -651,7 +651,6 @@ methods.usertovendorchat = function(req, res) {
                 response.userMessage = 'error occured';
                 return (SendResponse(res));
               } else {
-
                 var chatMessage = new chat({
                   vendorID: doc._id,
                   userID: req.body.userId,
@@ -714,7 +713,8 @@ methods.usertovendorchat = function(req, res) {
 
 methods.getchathistory = function(req, res) {
   var vendorId = req.query.vendorId;
-  var authtoken = req.headers.authorization;
+  var userId = req.query.userId;
+  console.log('vendorId : ', vendorId);
   MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
     function(err, db) {
       if (err) {
@@ -725,30 +725,27 @@ methods.getchathistory = function(req, res) {
         response.userMessage = 'error occured';
         return (SendResponse(res));
       } else {
-        db.collection('chibleeusers').findOne({
-          authToken: authtoken
-        }, function(err, doc) {
-          chat.find({
-            vendorID: vendorId,
-            userID: doc._id
-          }).sort({
-            'insertionDate': -1
-          }).exec(function(err, data) {
-            if (err) {
-              console.log(err);
-              response.error = true;
-              response.status = 500;
-              response.errors = err;
-              response.userMessage = 'error occured';
-              return (SendResponse(res));
-            } else {
-              response.error = false;
-              response.status = 200;
-              response.userMessage = 'successfully sent';
-              response.data = data;
-              return (SendResponse(res));
-            }
-          });
+
+        chat.find({
+          vendorID: vendorId,
+        }).sort({
+          'insertionDate': -1
+        }).exec(function(err, data) {
+          console.log('data : ', data);
+          if (err) {
+            console.log(err);
+            response.error = true;
+            response.status = 500;
+            response.errors = err;
+            response.userMessage = 'error occured';
+            return (SendResponse(res));
+          } else {
+            response.error = false;
+            response.status = 200;
+            response.userMessage = 'successfully sent';
+            response.data = data;
+            return (SendResponse(res));
+          }
         });
       }
     });
