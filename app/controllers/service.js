@@ -84,7 +84,7 @@ module.exports.controller = function(router) {
 
   router
     .route('/getchathistory')
-    .post(methods.getchathistory);
+    .get(methods.getchathistory);
 
 
 
@@ -511,13 +511,12 @@ methods.vendortouserchat = function(req, res) {
 
 
   var message = new gcm.Message();
+
   if (req.body.platform != 'ios') {
     var sender = new gcm.Sender('AIzaSyB4P3z-0xUTn3vIVpfvEuuI3er4UCzPUM0');
   } else {
     var sender = new gcm.Sender('AIzaSyBX594051r_jgt0_sCpH4X5AlmbVJX5s-s');
   }
-
-  console.log(sender);
 
   message.addNotification({
     userName: req.body.userName,
@@ -526,7 +525,11 @@ methods.vendortouserchat = function(req, res) {
     userGcmId: req.body.userGcmId,
     userId: req.body.userId
   });
+
+  console.log('sender : ', sender);
   console.log('message : ', message);
+  console.log('userGcmId : ', req.body.userGcmId);
+
   sender.send(message, {
     registrationTokens: [req.body.userGcmId]
   }, function(err, result) {
@@ -711,9 +714,7 @@ methods.usertovendorchat = function(req, res) {
 
 methods.getchathistory = function(req, res) {
   var vendorId = req.query.vendorId;
-  var authtoken = req.header['Authorization'];
-  console.log(vendorId);
-  console.log(authtoken);
+  var authtoken = req.headers.authorization;
   MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
     function(err, db) {
       if (err) {
