@@ -15,6 +15,14 @@ var chatSchema = new Schema({
     type: String,
     default: ''
   },
+  userGcmId: {
+    type: String,
+    default: ''
+  },
+  vendorGcmId: {
+    type: String,
+    default: ''
+  },
   userName: {
     type: String,
     default: ''
@@ -27,7 +35,11 @@ var chatSchema = new Schema({
     type: String,
     default: ''
   },
-  registerTime: {
+  uuid: {
+    type: String,
+    default: ''
+  },
+  insertionDate: {
     type: Number,
     default: 0
   }

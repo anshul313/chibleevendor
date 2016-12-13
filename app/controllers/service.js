@@ -22,6 +22,7 @@ var accessKey = 'AKIAIAIBZ2HSPX3L35DA';
 var secretKey = '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';
 var chat = mongoose.model('Chat');
 var MongoClient = require('mongodb').MongoClient;
+var FCM = require('fcm-node');
 
 
 
@@ -68,7 +69,6 @@ module.exports.controller = function(router) {
 
   router
     .route('/login')
-    .post(methods.generateOTP)
     .put(methods.confirmOTP);
 
   router
@@ -82,6 +82,14 @@ module.exports.controller = function(router) {
   router
     .route('/usertovendorchat')
     .post(methods.usertovendorchat);
+
+  router
+    .route('/getchathistory')
+    .get(methods.getchathistory);
+
+  router
+    .route('/test')
+    .get(methods.test);
 
 
 
@@ -415,139 +423,10 @@ var s3Upload = function(readStream, fileName, req, res) {
 };
 
 /*===========================================
-***   genrating OTP   ***
-=============================================*/
-
-methods.generateOTP = function(req, res) {
-  var OTP = String(Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
-  console.log(OTP);
-  // var options = {
-  //   method: 'GET',
-  //   uri: 'http://luna.a2wi.co.in:7501/failsafe/HttpLink',
-  //   qs: {
-  //     aid: 630972,
-  //     pin: "lou@1",
-  //     mnumber: "91" + req.body.mobileNumber,
-  //     message: "Thanks for downloading qykly. Your one time password is " +
-  //       OTP,
-  //     signature: "LSHOUT"
-  //   }
-  // };
-  device.findOne({
-    deviceID: req.body.deviceID
-  }, function(err, data) {
-    if (err) {
-      response.error = true;
-      response.errors = err;
-      response.status = 500;
-      response.userMessage = "Server internal error";
-      return SendResponse(res);
-    } else if (!data) {
-      response.error = true;
-      response.errors = err;
-      response.status = 400;
-      response.userMessage = "Device not found";
-      return SendResponse(res);
-    } else {
-      if ((req.body.mobile).length != 10) {
-        console.log("mobile Invalid");
-        response.error = true;
-        response.status = 400;
-        response.userMessage = "Invalid mobileNumber";
-        return SendResponse(res);
-      } else {
-        deviceID = data.deviceID;
-        deviceID.findOne({
-          mobileNumber: req.body.mobileNumber
-        }, function(err, data) {
-          if (err) {
-            response.error = true;
-            response.errors = err;
-            response.status = 500;
-            response.userMessage = "Server internal error";
-            return SendResponse(res);
-          } else if (data) {
-            console.log("mobile number already exist");
-            // request('http://luna.a2wi.co.in:7501/failsafe/HttpLink',
-            //   options,
-            //   function(err, resp, body) {
-            //     if (err || resp.statusCode != 200) {
-            //       response.error = true;
-            //       response.errors = err;
-            //       response.status = 500;
-            //       response.userMessage = "Server internal error";
-            //       return SendResponse(res);;
-            //     } else {
-            data.OTP = OTP;
-            data.mobileNumber = req.body.mobile;
-            data.otpTime = Date.now().getTime();
-            data.save(function(err, result) {
-              if (err) {
-                response.error = true;
-                response.errors = err;
-                response.status = 500;
-                response.userMessage =
-                  "Server internal error";
-                return SendResponse(res);
-              } else {
-                response.userMessage = "OTP sent";
-                response.status = 200;
-                response.data = OTP;
-
-                return SendResponse(res);
-              }
-            });
-            //   }
-            // });
-          } else {
-            // request('http://luna.a2wi.co.in:7501/failsafe/HttpLink',
-            //   options,
-            //   function(error, resp, body) {
-            //     console.log("mobile number not exist");
-            //     if (!error && resp.statusCode == 200) {
-            var newUser = new user({
-              mobileNumber: req.body.mobile,
-              OTP: OTP
-            });
-            newUser.save(function(err) {
-              if (err) {
-                response.error = true;
-                response.errors = err;
-                response.status = 500;
-                response.userMessage =
-                  "Server internal error";
-                return SendResponse(res);
-              } else {
-                response.userMessage = "OTP sent";
-                response.status = 200;
-                response.data = OTP;
-                return SendResponse(res);
-              }
-            });
-            //   } else {
-            //     response.error = true;
-            //     response.status = 500;
-            //     response.errors = err;
-            //     response.userMessage = "Server internal error";
-            //     return SendResponse(res);
-            //   }
-            // });
-          }
-        });
-      }
-    }
-  });
-}
-
-/*-----  End of generateOTP --------*/
-
-/*===========================================
 ***   user confirmation using OTP   ***
 =============================================*/
 
 methods.confirmOTP = function(req, res) {
-  // req.checkBody('mobileNumber', 'mobile is required.').notEmpty();
-  // req.checkBody('otp', 'otp is required.').notEmpty();
   var errors = req.validationErrors(true);
   if (errors) {
     response.error = true;
@@ -573,29 +452,6 @@ methods.confirmOTP = function(req, res) {
         response.userMessage = "OTP invalid";
         return SendResponse(res);
       } else {
-        //   var otpTime = data.otpTime
-        //   var currentTime = Date.now()
-        //   if ((currentTime - otpTime) < 900e3) {
-        //     data.created = Date.now()
-        //     data.signupComplete = true
-        //     var token = jwt.sign({
-        //       userID: String(data._id)
-        //     }, config.sessionSecret, {
-        //       expiresIn: 60 * 60 * 120
-        //     });
-        //     data.authToken = token
-        //     if (data.deviceID.indexOf(req.body.deviceID) < 0) {
-        //       data.deviceID.push(req.body.deviceID);
-        //     }
-        //     data.currentDevice = data.deviceID.indexOf(req.body.deviceID)
-        //     data.save(function(err) {
-        //       if (err) {
-        //         response.error = true;
-        //         response.status = 500;
-        //         response.errors = err;
-        //         response.userMessage = "Server error";
-        //         return SendResponse(res);
-        //       } else {
         response.error = false;
         response.status = 200;
         response.data = data
@@ -603,15 +459,6 @@ methods.confirmOTP = function(req, res) {
         response.userMessage = "Thanks for Login";
         return SendResponse(res);
       }
-      //     });
-      //   } else {
-      //   response.error = true;
-      //   response.status = 400;
-      //   response.errors = err;
-      //   response.userMessage = "OTP expired";
-      //   return SendResponse(res);
-      // }
-      // }
     });
   }
 }
@@ -667,87 +514,191 @@ methods.locationHistory = function(req, res) {
 
 methods.vendortouserchat = function(req, res) {
 
-  var message = new gcm.Message();
-  var sender = new gcm.Sender('AIzaSyB4P3z-0xUTn3vIVpfvEuuI3er4UCzPUM0');
 
-  message.addNotification({
-    userName: req.body.userName,
-    vendorGcmId: req.body.vendorGcmId,
-    messageText: req.body.messageText,
-    userGcmId: req.body.userGcmId,
-    userId: req.body.userId
-  });
 
-  sender.send(message, {
-    registrationTokens: [req.body.userGcmId]
-  }, function(err, result) {
-    if (err) {
-      console.log(err);
-      response.error = true;
-      response.status = 500;
-      response.errors = err;
-      response.userMessage = 'error occured';
-      return (SendResponse(res));
-    } else {
-      if (result.success == 1) {
-        MongoClient.connect('mongodb://54.169.192.5:12528/chiblee',
-          function(err, db) {
-            db.collection('chibleeusers').findOne({
-              pushToken: req.body.userGcmId
-            }, function(err, doc) {
-              if (err) {
-                console.log(err);
-                response.error = true;
-                response.status = 500;
-                response.errors = err;
-                response.userMessage = 'error occured';
-                return (SendResponse(res));
-              } else {
-                var chatMessage = new chat({
-                  vendorID: req.body.vendorId,
-                  userID: doc._id,
-                  messageText: req.body.messageText,
-                  messageStatus: req.body.messageStatus,
-                  registerTime: new Date().getTime(),
-                  userName: req.body.userName,
-                  vendorName: req.body.vendorName
-                });
-                chatMessage.save(function(err) {
-                  if (err) {
-                    console.log(err);
-                    response.error = true;
-                    response.status = 500;
-                    response.errors = err;
-                    response.userMessage = 'error occured';
-                    return (SendResponse(res));
-                  }
-                  console.log(response);
-                  response.error = false;
-                  response.status = 200;
-                  response.userMessage = 'successfully sent';
-                  response.data = {
-                    userName: req.body.userName,
-                    vendorGcmId: req.body.vendorGcmId,
-                    messageText: req.body.messageText,
-                    userGcmId: req.body.userGcmId
-                  };
+  if (req.body.platform != 'ios') {
 
-                  db.close();
-                  return (SendResponse(res));
-                });
-              }
-            });
-          });
-      } else {
+    var sender = new gcm.Sender('AIzaSyB4P3z-0xUTn3vIVpfvEuuI3er4UCzPUM0');
+    var message = new gcm.Message();
+    message.addNotification({
+      userName: req.body.userName,
+      vendorGcmId: req.body.vendorGcmId,
+      messageText: req.body.messageText,
+      userGcmId: req.body.userGcmId,
+      userId: req.body.userId
+    });
+
+    console.log('sender : ', sender);
+    console.log('message : ', message);
+    console.log('userGcmId : ', req.body.userGcmId);
+
+    sender.send(message, {
+      registrationTokens: [req.body.userGcmId]
+    }, function(err, result) {
+      console.log('result : ', result);
+      if (err) {
+        console.log(err);
         response.error = true;
         response.status = 500;
-        response.errors = result.results[0].error;
+        response.errors = err;
         response.userMessage = 'error occured';
         return (SendResponse(res));
-      }
+      } else {
+        if (result.success == 1) {
+          MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
+            function(err, db) {
+              db.collection('chibleeusers').findOne({
+                pushToken: req.body.userGcmId
+              }, function(err, doc) {
+                if (err) {
+                  console.log('doc : ', doc);
+                  console.log(err);
+                  response.error = true;
+                  response.status = 500;
+                  response.errors = err;
+                  response.userMessage = 'error occured';
+                  return (SendResponse(res));
+                } else {
+                  var chatMessage = new chat({
+                    vendorID: req.body.vendorId,
+                    userID: doc._id,
+                    messageText: req.body.messageText,
+                    messageStatus: req.body.messageStatus,
+                    insertionDate: new Date().getTime(),
+                    userName: req.body.userName,
+                    vendorName: req.body.vendorName,
+                    uuid: req.body.uuid,
+                    userGcmId: req.body.userGcmId,
+                    vendorGcmId: req.body.vendorGcmId,
+                  });
+                  chatMessage.save(function(err) {
+                    if (err) {
+                      console.log(err);
+                      response.error = true;
+                      response.status = 500;
+                      response.errors = err;
+                      response.userMessage = 'error occured';
+                      return (SendResponse(res));
+                    }
+                    console.log(response);
+                    response.error = false;
+                    response.status = 200;
+                    response.userMessage = 'successfully sent';
+                    response.data = {
+                      userName: req.body.userName,
+                      vendorGcmId: req.body.vendorGcmId,
+                      messageText: req.body.messageText,
+                      userGcmId: req.body.userGcmId
+                    };
 
-    }
-  });
+                    db.close();
+                    return (SendResponse(res));
+                  });
+                }
+              });
+            });
+        } else {
+          response.error = true;
+          response.status = 500;
+          response.errors = result.results[0].error;
+          response.userMessage = 'error occured';
+          return (SendResponse(res));
+        }
+
+      }
+    });
+  } else {
+    var serverKey = 'AIzaSyC4fPEefkm99KPvsVkkc-8mXTW498QoJb8';
+    var fcm = new FCM(serverKey);
+
+    var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+      to: req.body.userGcmId,
+      collapse_key: 'your_collapse_key',
+
+      notification: {
+        title: 'Title of your push notification',
+        body: 'Body of your push notification'
+      },
+
+      data: { //you can send only notification or only data(or include both)
+        userName: req.body.userName,
+        vendorGcmId: req.body.vendorGcmId,
+        messageText: req.body.messageText,
+        userGcmId: req.body.userGcmId,
+        userId: req.body.userId
+      }
+    };
+    fcm.send(message, function(err, result) {
+      if (err) {
+        console.log(err);
+        response.error = true;
+        response.status = 500;
+        response.errors = err;
+        response.userMessage = 'error occured';
+        return (SendResponse(res));
+      } else {
+        if (result.success != 0) {
+          MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
+            function(err, db) {
+              db.collection('chibleeusers').findOne({
+                pushToken: req.body.userGcmId
+              }, function(err, doc) {
+                if (err) {
+                  console.log('doc : ', doc);
+                  console.log(err);
+                  response.error = true;
+                  response.status = 500;
+                  response.errors = err;
+                  response.userMessage = 'error occured';
+                  return (SendResponse(res));
+                } else {
+                  var chatMessage = new chat({
+                    vendorID: req.body.vendorId,
+                    userID: doc._id,
+                    messageText: req.body.messageText,
+                    messageStatus: req.body.messageStatus,
+                    insertionDate: new Date().getTime(),
+                    userName: req.body.userName,
+                    vendorName: req.body.vendorName,
+                    uuid: req.body.uuid,
+                    userGcmId: req.body.userGcmId,
+                    vendorGcmId: req.body.vendorGcmId,
+                  });
+                  chatMessage.save(function(err) {
+                    if (err) {
+                      console.log(err);
+                      response.error = true;
+                      response.status = 500;
+                      response.errors = err;
+                      response.userMessage = 'error occured';
+                      return (SendResponse(res));
+                    }
+                    console.log(response);
+                    response.error = false;
+                    response.status = 200;
+                    response.userMessage = 'successfully sent';
+                    response.data = {
+                      userName: req.body.userName,
+                      vendorGcmId: req.body.vendorGcmId,
+                      messageText: req.body.messageText,
+                      userGcmId: req.body.userGcmId
+                    };
+                    db.close();
+                    return (SendResponse(res));
+                  });
+                }
+              });
+            });
+        } else {
+          response.error = true;
+          response.status = 500;
+          response.errors = result;
+          response.userMessage = 'error occured';
+          return (SendResponse(res));
+        }
+      }
+    });
+  }
 }
 
 /*-----  End of vendortouserchat Notification Trigger Service  --------*/
@@ -783,7 +734,7 @@ methods.usertovendorchat = function(req, res) {
       return (SendResponse(res));
     } else {
       if (result.success == 1) {
-        MongoClient.connect('mongodb://54.169.192.5:12528/chiblee',
+        MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
           function(err, db) {
             db.collection('cleanvendors').findOne({
               "gcmId": req.body.vendorGcmId
@@ -796,15 +747,16 @@ methods.usertovendorchat = function(req, res) {
                 response.userMessage = 'error occured';
                 return (SendResponse(res));
               } else {
-
                 var chatMessage = new chat({
-                  vendorID: req.body.vendorId,
-                  userID: doc._id,
+                  vendorID: doc._id,
+                  userID: req.body.userId,
                   messageText: req.body.messageText,
-                  messageStatus: req.body.messageStatus,
-                  registerTime: new Date().getTime(),
+                  messageStatus: 'sent',
+                  insertionDate: new Date().getTime(),
                   userName: req.body.userName,
-                  vendorName: req.body.vendorName
+                  vendorName: req.body.vendorName,
+                  userGcmId: req.body.userGcmId,
+                  vendorGcmId: req.body.vendorGcmId,
                 });
                 chatMessage.save(function(err) {
                   if (err) {
@@ -818,6 +770,13 @@ methods.usertovendorchat = function(req, res) {
                   response.error = false;
                   response.status = 200;
                   response.userMessage = 'successfully sent';
+                  response.data = {
+                    userName: req.body.userName,
+                    vendorGcmId: req.body.vendorGcmId,
+                    messageText: req.body.messageText,
+                    userGcmId: req.body.userGcmId,
+                    userId: req.body.userId,
+                  };
                   response.data = result;
                   response.userId = req.body.userId;
                   response.userName = req.body.userName;
@@ -845,3 +804,83 @@ methods.usertovendorchat = function(req, res) {
 }
 
 /*-----  End of usertovendorchat Notification Trigger Service  --------*/
+
+/*===========================================
+***  getchathistory Notification  Trigger Service   ***
+=============================================*/
+
+methods.getchathistory = function(req, res) {
+  var vendorId = req.query.vendorId;
+  var userId = req.query.userId;
+  console.log('vendorId : ', vendorId);
+  MongoClient.connect('mongodb://139.59.9.200:12528/chiblee',
+    function(err, db) {
+      if (err) {
+        console.log(err);
+        response.error = true;
+        response.status = 500;
+        response.errors = err;
+        response.userMessage = 'error occured';
+        return (SendResponse(res));
+      } else {
+
+        chat.find({
+          vendorID: vendorId,
+        }).sort({
+          'insertionDate': 1
+        }).exec(function(err, data) {
+          console.log('data : ', data);
+          if (err) {
+            console.log(err);
+            response.error = true;
+            response.status = 500;
+            response.errors = err;
+            response.userMessage = 'error occured';
+            return (SendResponse(res));
+          } else {
+            response.error = false;
+            response.status = 200;
+            response.userMessage = 'successfully sent';
+            response.data = data;
+            return (SendResponse(res));
+          }
+        });
+      }
+    });
+}
+
+
+/*-----
+End of getchathistory Notification Trigger Service
+--------*/
+
+
+methods.test = function(req, res) {
+
+
+  var serverKey = 'AIzaSyC4fPEefkm99KPvsVkkc-8mXTW498QoJb8';
+  var fcm = new FCM(serverKey);
+
+  var message = { //this may vary according to the message type (single recipient, multicast, topic, et cetera)
+    to: 'd3Rr47PKnA4:APA91bHFmDqHGrANOuUxqG8FHUEFejKuaXTxAOS-ifETK_-aOfQinxJ7j3fs23m9S4662zyr0z3jTfEWgdCxoqVSArkkOgoQg06AdbO6mDIzoI0fLRDFJwKi3AQrX_nMuVQfbhnM-1gr',
+    collapse_key: 'your_collapse_key',
+
+    notification: {
+      title: 'Title of your push notification',
+      body: 'Body of your push notification'
+    },
+
+    data: { //you can send only notification or only data(or include both)
+      my_key: 'my value',
+      my_another_key: 'my another value'
+    }
+  };
+
+  fcm.send(message, function(err, response) {
+    if (err) {
+      console.log("Something has gone wrong!");
+    } else {
+      console.log("Successfully sent with response: ", response);
+    }
+  });
+}
