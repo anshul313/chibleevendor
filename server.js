@@ -3,8 +3,26 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var config = require('config');
-var autoIncrement = require('mongoose-auto-increment')
+var autoIncrement = require('mongoose-auto-increment');
 var port = process.env.PORT || 8080; // set our port
+var session = require('express-session');
+var passport = require('passport');
+
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+app.use(function(req, res, next) {
+    res.locals.user = req.user || null;
+    next();
+});
+
+// Passport init
+app.use(passport.initialize());
+app.use(passport.session());
 
 // var ObjectId = mongoose.Types.ObjectId;
 
@@ -17,8 +35,8 @@ var port = process.env.PORT || 8080; // set our port
 // var nats = natsConnection.nats();
 
 // nats.on('error', function(e) {
-// 	console.log('Error [' + nats.options.url + ']: ' + e);
-// 	process.exit();
+//  console.log('Error [' + nats.options.url + ']: ' + e);
+//  process.exit();
 // });
 
 // require('pub-sub').subscribe(nats, 'testing');
@@ -27,21 +45,21 @@ var port = process.env.PORT || 8080; // set our port
 var router = express.Router();
 //connect to mongoDb
 var connect = function() {
-	var options = {
-		server: {
-			socketOptions: {
-				keepAlive: 1
-			}
-		}
-		// ,
-		// user: 'qykly',
-		// pass: 'qykly123'
-	};
-	var connection = mongoose.connect(
-		'mongodb://54.169.192.5:12528/chiblee',
-		options);;
-	autoIncrement.initialize(connection);
-	// mongoose.connect('mongodb://localhost/quickly', options);
+    var options = {
+        server: {
+            socketOptions: {
+                keepAlive: 1
+            }
+        }
+        // ,
+        // user: 'qykly',
+        // pass: 'qykly123'
+    };
+    var connection = mongoose.connect(
+        'mongodb://139.59.9.200:12528/chiblee',
+        options);;
+    autoIncrement.initialize(connection);
+    // mongoose.connect('mongodb://localhost/quickly', options);
 };
 connect();
 
@@ -50,7 +68,7 @@ mongoose.connection.on('disconnected', connect);
 
 // Bootstrap models
 fs.readdirSync(__dirname + '/app/models').forEach(function(file) {
-	if (~file.indexOf('.js')) require(__dirname + '/app/models/' + file);
+    if (~file.indexOf('.js')) require(__dirname + '/app/models/' + file);
 });
 
 // Bootstrap application settings
@@ -62,8 +80,8 @@ app.use('/api', router);
 
 //Install application
 if (process.env.NODE_ENV != 'test') {
-	app.listen(port)
-	console.log(process.env.NODE_ENV, 'Quickly API\'s running on the port : ' +
-		port);
+    app.listen(port)
+    console.log(process.env.NODE_ENV, 'Quickly API\'s running on the port : ' +
+        port);
 }
 module.exports = app;
